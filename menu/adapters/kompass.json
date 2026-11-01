@@ -6,6 +6,6 @@
     "radius": 10,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/kompass ipc call launcher toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/kompass ipc call launcher toggle"
     ]
 }

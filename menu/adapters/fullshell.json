@@ -6,7 +6,7 @@
     "radius": 22,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/fullshell ipc call launcher toggle",
-        "bind=CTRL+SUPER,w,spawn,qs -p ~/quickdots/bars/fullshell ipc call wallpaper toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/fullshell ipc call launcher toggle",
+        "bind=CTRL+SUPER,w,spawn,qs -p @QUICKDOTS_ROOT@/bars/fullshell ipc call wallpaper toggle"
     ]
 }

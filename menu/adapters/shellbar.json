@@ -6,6 +6,6 @@
     "radius": 20,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/shellbar ipc call launcher toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/shellbar ipc call launcher toggle"
     ]
 }

@@ -20,10 +20,9 @@ if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
     cat <<'USAGE'
 Usage: ./install.sh
 
-Installs available quickdots runtime packages with the detected package
-manager, links the menu/shellwall/blobball Quickshell configs, copies the
-repository wallpapers into ~/Pictures/Walpapers, and configures the default
-quickdots bar in ~/.config/mango/config.conf.
+Installs available runtime packages and Quickshell links, then asks how to
+configure Mango autostart, keybinds and optional wallpapers. Tailscale server
+settings are requested last and can be skipped.
 
 MangoWM (mango + mmsg) must already be installed. Package installation may
 ask for sudo; Nix installs into the current user's profile.
@@ -32,7 +31,7 @@ USAGE
 fi
 [[ $# -eq 0 ]] || die "Unknown argument: $1 (use --help)"
 
-[[ "$ROOT" == "$USER_HOME/quickdots" ]] || warn "This checkout is at $ROOT. Some existing quickdots scripts currently expect $USER_HOME/quickdots; move/clone it there for bar switching to work."
+[[ "$ROOT" == "$USER_HOME/quickdots" ]] || warn "This checkout is at $ROOT; generated Mango commands will use this repository path."
 
 OS_ID=""
 OS_LIKE=""
@@ -123,6 +122,10 @@ esac
 
 say "Creating Quickshell configuration links"
 mkdir -p "$QS_DIR" "$USER_HOME/.local/state/quickshell" "$USER_HOME/.local/state/quickdots" "$USER_HOME/.cache" "$WALLPAPER_DIR"
+if (( EUID == 0 )) && [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != root ]]; then
+    chown "$SUDO_USER" "$QS_DIR" "$USER_HOME/.local/state/quickshell" \
+        "$USER_HOME/.local/state/quickdots" "$WALLPAPER_DIR"
+fi
 link_config() {
     local name="$1" source="$2" target="$QS_DIR/$name"
     if [[ -e "$target" && ! -L "$target" ]]; then
@@ -134,8 +137,15 @@ link_config menu "$ROOT/menu"
 link_config quickwall "$ROOT/shellwall"
 link_config blob "$ROOT/blobball"
 
-if [[ -d "$ROOT/wallpapers" ]]; then
-    say "Copying repository wallpapers to $WALLPAPER_DIR (existing files are kept)"
+read -r -p $'\nMango-Einrichtung wählen:\n  1) Alles (Autostart + Keybinds + optionale Wallpaper-Kopie)\n  2) Nur Autostart (ohne Quickdots-Keybinds)\n  3) Autostart und Keybinds\nAuswahl [1]: ' SETUP_CHOICE
+SETUP_CHOICE="${SETUP_CHOICE:-1}"
+case "$SETUP_CHOICE" in 1|2|3) ;; *) die "Bitte 1, 2 oder 3 wählen." ;; esac
+read -r -p "Aktive Bar [simple]: " BAR
+BAR="${BAR:-simple}"
+[[ -f "$ROOT/bars/$BAR/shell.qml" ]] || die "Unbekannte Bar: $BAR"
+
+if [[ -d "$ROOT/wallpapers" && "$SETUP_CHOICE" == 1 ]]; then
+    say "Copying optional wallpapers from the repository (existing files are kept)"
     while IFS= read -r -d '' image; do
         name="${image##*/}"
         [[ -e "$WALLPAPER_DIR/$name" ]] || cp -- "$image" "$WALLPAPER_DIR/$name"
@@ -149,11 +159,81 @@ if ((${#missing[@]})); then
     warn "Not found: ${missing[*]}. MangoWM itself must be installed separately; wallpaper and bar features may not work until these commands are available."
 fi
 
-if [[ -x "$ROOT/menu/scripts/mango-block.sh" && -d "$USER_HOME/.config/mango" ]]; then
-    say "Adding the quickdots default bar and menu to MangoWM"
-    "$ROOT/menu/scripts/mango-block.sh" simple
+if [[ -x "$ROOT/menu/scripts/mango-block.sh" && -f "$USER_HOME/.config/mango/config.conf" ]]; then
+    say "Adding Quickdots autostart and selected keybinds to MangoWM"
+    mkdir -p "$USER_HOME/.local/state/quickdots"
+    printf '%s\n' "$BAR" > "$USER_HOME/.local/state/quickdots/active-bar"
+    if (( EUID == 0 )) && [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != root ]]; then
+        chown "$SUDO_USER" "$USER_HOME/.local/state/quickdots/active-bar"
+    fi
+    mango_mode=all
+    [[ "$SETUP_CHOICE" == 2 ]] && mango_mode=autostart
+    if (( EUID == 0 )) && [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != root ]]; then
+        sudo -u "$SUDO_USER" env HOME="$USER_HOME" MANGO_CONF="$USER_HOME/.config/mango/config.conf" \
+            "$ROOT/menu/scripts/mango-block.sh" "$BAR" "$mango_mode"
+    else
+        HOME="$USER_HOME" MANGO_CONF="$USER_HOME/.config/mango/config.conf" \
+            "$ROOT/menu/scripts/mango-block.sh" "$BAR" "$mango_mode"
+    fi
+    if [[ "$mango_mode" == all ]]; then
+        missing_binds="$(python3 - "$ROOT/menu/adapters/$BAR.json" <<'PY'
+import json, re, shlex, shutil, sys
+try:
+    with open(sys.argv[1]) as stream:
+        bindings = json.load(stream).get("keybinds", [])
+except (OSError, json.JSONDecodeError):
+    bindings = []
+missing = set()
+for binding in bindings:
+    match = re.search(r",spawn,(.+)$", binding.replace("@QUICKDOTS_ROOT@", sys.argv[1].rsplit("/menu/", 1)[0]))
+    if not match:
+        continue
+    try:
+        command = shlex.split(match.group(1))
+    except ValueError:
+        continue
+    if command and shutil.which(command[0]) is None:
+        missing.add(command[0])
+print("\n".join(sorted(missing)))
+PY
+)"
+        if [[ -n "$missing_binds" ]]; then
+            warn "Programs used by selected bar keybinds but missing from PATH: ${missing_binds//$'\n'/, }. Install them separately if needed."
+        else
+            say "All direct programs used by the selected bar's keybinds are available."
+        fi
+    fi
 else
     warn "No MangoWM config found at ~/.config/mango/config.conf; configs are linked but autostart/keybind integration was skipped."
+fi
+
+read -r -p $'\nTailscale-Server jetzt konfigurieren? Hostname/IP eingeben oder Enter zum Überspringen: ' SERVER_HOST
+if [[ -n "$SERVER_HOST" ]]; then
+    read -r -p "Optionale Tailscale-Fallback-IP [leer]: " SERVER_IP
+    read -r -p "SSH-Benutzer [aktueller Benutzer]: " SERVER_USER
+    SERVER_USER="${SERVER_USER:-$(id -un)}"
+    mkdir -p "$USER_HOME/.local/state/quickshell"
+    python3 - "$USER_HOME/.local/state/quickshell/menu-server.json" "$SERVER_HOST" "$SERVER_IP" "$SERVER_USER" <<'PY'
+import json, os, sys, tempfile
+path, host, fallback, user = sys.argv[1:]
+directory = os.path.dirname(path)
+fd, tmp = tempfile.mkstemp(prefix="menu-server.", dir=directory, text=True)
+try:
+    with os.fdopen(fd, "w") as stream:
+        json.dump({"host": host.strip(), "fallback": fallback.strip(), "user": user.strip()}, stream, indent=2)
+        stream.write("\n")
+    os.chmod(tmp, 0o600)
+    os.replace(tmp, path)
+finally:
+    if os.path.exists(tmp):
+        os.unlink(tmp)
+PY
+    if (( EUID == 0 )) && [[ -n "${SUDO_USER:-}" && "$SUDO_USER" != root ]]; then
+        chown "$SUDO_USER" "$USER_HOME/.local/state/quickshell/menu-server.json"
+    fi
+    say "Server settings saved locally to ~/.local/state/quickshell/menu-server.json"
+else
+    say "Server setup skipped; configure it in the menu later or rerun this installer."
 fi
 
 say "Installation setup complete. Log out and back in to start the configured bar, or start MangoWM again."

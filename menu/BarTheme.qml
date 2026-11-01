@@ -15,8 +15,8 @@ QtObject {
     id: root
 
     property string barName: ""
-    readonly property string basePath: "~/quickdots/menu/adapters/"
-    readonly property string liveBasePath: "~/quickdots/menu/adapters/live/"
+    readonly property string basePath: Quickshell.shellDir + "/adapters/"
+    readonly property string liveBasePath: Quickshell.shellDir + "/adapters/live/"
 
     property FileView _specific: FileView {
         path: root.barName.length ? root.basePath + root.barName + ".json" : ""

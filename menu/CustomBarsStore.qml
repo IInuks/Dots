@@ -12,7 +12,7 @@ import Quickshell.Io
 QtObject {
     id: root
 
-    readonly property string scriptsDir: "~/quickdots/menu/scripts"
+    readonly property string scriptsDir: Quickshell.shellDir + "/scripts"
     readonly property string stateDir: Quickshell.env("HOME") + "/.local/state/quickdots/custom-bars"
 
     property var list: []          // [{slug, name}, ...]

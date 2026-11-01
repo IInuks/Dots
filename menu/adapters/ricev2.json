@@ -6,12 +6,12 @@
     "radius": 0,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/ricev2 ipc call launcher toggle",
-        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/ricev2 ipc call power toggle",
-        "bind=ALT,Tab,spawn,qs -p ~/quickdots/bars/ricev2 ipc call switch open",
-        "bind=ALT+SHIFT,Tab,spawn,qs -p ~/quickdots/bars/ricev2 ipc call switch prev",
-        "bind=ALT,Return,spawn,qs -p ~/quickdots/bars/ricev2 ipc call switch confirm",
-        "bind=ALT,Escape,spawn,qs -p ~/quickdots/bars/ricev2 ipc call switch cancel",
-        "bind=ALT,c,spawn,qs -p ~/quickdots/bars/ricev2 ipc call switch close"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call launcher toggle",
+        "bind=SUPER,Escape,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call power toggle",
+        "bind=ALT,Tab,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call switch open",
+        "bind=ALT+SHIFT,Tab,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call switch prev",
+        "bind=ALT,Return,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call switch confirm",
+        "bind=ALT,Escape,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call switch cancel",
+        "bind=ALT,c,spawn,qs -p @QUICKDOTS_ROOT@/bars/ricev2 ipc call switch close"
     ]
 }

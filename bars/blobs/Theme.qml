@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick
+import Quickshell
 import Quickshell.Io
 
 // Live-Palette aus matugen (Auftrag Abschnitt 8). Root-level Singleton,
@@ -22,7 +23,7 @@ QtObject {
     // diesem Projekt (Mango.qml, Cpu.qml).
     property FileView colorsFile: FileView {
         id: colorsFile
-        path: "~/.cache/blobs-bar/colors.json"
+        path: Quickshell.env("HOME") + "/.cache/blobs-bar/colors.json"
         watchChanges: true
         onLoaded: root._onColorsText(colorsFile.text())
         onFileChanged: colorsFile.reload()

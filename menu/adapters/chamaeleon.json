@@ -6,7 +6,7 @@
     "radius": 14,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/chamaeleon ipc call launcher toggle",
-        "bind=CTRL+SUPER,c,spawn,qs -p ~/quickdots/bars/chamaeleon ipc call settings toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/chamaeleon ipc call launcher toggle",
+        "bind=CTRL+SUPER,c,spawn,qs -p @QUICKDOTS_ROOT@/bars/chamaeleon ipc call settings toggle"
     ]
 }

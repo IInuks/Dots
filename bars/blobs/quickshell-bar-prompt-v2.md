@@ -35,7 +35,7 @@ installierten Quickshell-Version — rate nicht, schau in Doku bzw. Modulen nach
   Statusabfrage ausschließlich über `mmsg`.
 - **Shell:** Quickshell, QML/QtQuick, Layer-Shell über `Quickshell.Wayland`.
 - **Config-Pfad:** `~/.config/quickshell/bar/`
-- **User:** `PRIVATE_VALUE`, Wallpaper-Ordner: `~/Pictures/Wallpaper`
+- **User:** current account; wallpapers are stored outside this repository
 
 ```
 ~/.config/quickshell/bar/
@@ -149,7 +149,7 @@ Zahl weich (Fade + 2 px Slide in Wechselrichtung).
 
 - **Transparenz-Slider** (0–100 %), steuert live die Deckkraft aller Leisten-Elemente,
   Wert persistent gespeichert.
-- **Wallpaper-Grid:** Thumbnails aller Bilder aus `~/Pictures/Wallpaper`
+- **Wallpaper-Grid:** Thumbnails eigener Bilder aus dem lokalen Wallpaper-Ordner
   (jpg/jpeg/png/webp). Klick auf ein Bild:
   1. Wallpaper setzen (`swww img <pfad>` bevorzugt, sonst `wpaperd`; ist keines
      installiert, frag mich)

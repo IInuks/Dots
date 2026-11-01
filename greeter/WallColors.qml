@@ -5,15 +5,15 @@ import Quickshell
 // The wallpaper and the colors taken from it. Theme.qml derives its palette
 // from `hue`/`lum`, so the whole greeter follows the user's wallpaper.
 //
-// Wallpaper order: $QD_GREETER_WALLPAPER (launch.sh points it at the copy
-// scripts/wallsync.sh keeps in sync with awww), else the bundled one.
+// Wallpaper is supplied by QD_GREETER_WALLPAPER when configured. No image is
+// bundled in this repository.
 // No Behavior here: Behaviors inside singletons crash Quickshell 0.3.1.
 Singleton {
     id: root
 
     readonly property string wallpaper: {
         const env = Quickshell.env("QD_GREETER_WALLPAPER");
-        return env ? "file://" + env : Qt.resolvedUrl("wallpaper.jpg");
+        return env ? "file://" + env : "";
     }
 
     // teal of the original palette, used for gray wallpapers

@@ -10,8 +10,9 @@
 
 set -euo pipefail
 
-MENU_DIR="~/quickdots/menu"
-BARS_DIR="~/quickdots/bars"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+MENU_DIR="$ROOT/menu"
+BARS_DIR="$ROOT/bars"
 STATE_FILE="$HOME/.local/state/quickdots/active-bar"
 
 BAR="${1:?usage: try-launcher.sh <bar>}"

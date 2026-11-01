@@ -158,12 +158,6 @@ Menu {
                                 Behavior on grow { NumberAnimation { duration: 700 + row.index * 120; easing.type: Easing.OutBack } }
                                 width: Math.max(6, track.width * row.modelData.v * grow)
                                 Behavior on width { NumberAnimation { duration: 500; easing.type: Easing.OutCubic } }
-                                Image {
-                                    anchors.fill: parent
-                                    source: "../assets/grain.png"
-                                    fillMode: Image.Tile
-                                    opacity: 0.25
-                                }
                                 // umgeknicktes Ende
                                 Rectangle {
                                     anchors.right: parent.right

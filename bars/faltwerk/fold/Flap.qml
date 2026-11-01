@@ -73,12 +73,6 @@ Item {
                 height: root.horizontal ? parent.height * root.backFraction : parent.height
                 color: root.backColor
                 radius: root.radius
-                Image {
-                    anchors.fill: parent
-                    source: "../assets/grain.png"
-                    fillMode: Image.Tile
-                    opacity: Paper.grain * 1.4
-                }
                 Crane {
                     visible: root.stamp
                     anchors.centerIn: parent

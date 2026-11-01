@@ -17,7 +17,8 @@
 
 set -euo pipefail
 
-MENU_DIR="~/quickdots/menu"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+MENU_DIR="$ROOT/menu"
 STATE_FILE="$HOME/.local/state/quickdots/active-bar"
 
 BAR="${1:?usage: set-launcher.sh <bar> <launcher>}"

@@ -2,8 +2,6 @@
 
 Alles ist aus Papier: Die Leiste besteht aus zickzack-gefalteten Papierstücken, jedes Menü faltet sich auf seine eigene Art auf, und der Launcher ist ein zweimal gefalteter Bogen. Gestartete Apps fliegen als Papierflieger davon. Sechs Papiersorten wechselt man über einen Farbfächer, die Leiste blättert dabei um: **Adaptiv** (aus dem Wallpaper), Washi, Kraft, Tusche, Blaupause und Sakura.
 
-![Leiste](docs/bar.png)
-
 ## Was drin ist
 
 | Teil | Datei | Animation |
@@ -21,10 +19,6 @@ Alles ist aus Papier: Die Leiste besteht aus zickzack-gefalteten Papierstücken,
 | **Zettel** | `menus/NoteMenu.qml` | Angepinnter Notizzettel, klappt herunter und pendelt aus. Wird automatisch gespeichert. „abreißen“ lässt ihn fallen und hängt einen neuen hin. |
 | **Himmel und Hölle** | `menus/PowerMenu.qml` | Das Papier-Orakel als Ausschalt-Menü. Vier Klappen falten sich nacheinander auf: Ruhe, Neustart, Aus, Abmelden. Erster Klick wählt, zweiter führt aus. |
 | **Launcher** | `launcher/` | Zweimal gefalteter Bogen mit Kranich-Stempel auf der Rückseite. Erst klappt die untere, dann die rechte Hälfte in Perspektive auf. Die Apps sind Origami-Kärtchen, die gestaffelt aufklappen. Enter faltet die gewählte zum **Papierflieger**. |
-
-![Menüs](docs/menus-1.png)
-![Fächer und Orakel](docs/menus-2.png)
-![Launcher](docs/launcher.png)
 
 ## Bedienung
 

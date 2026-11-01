@@ -80,12 +80,6 @@ Item {
                 color: "#000000"
                 opacity: 0.16
             }
-            Image {
-                anchors.fill: parent
-                source: "../assets/grain.png"
-                fillMode: Image.Tile
-                opacity: 0.22
-            }
             // Falzkanten oben/unten
             Rectangle { width: parent.width; height: 1; y: 3; color: "#ffffff"; opacity: 0.22 }
             Rectangle { width: parent.width; height: 1; y: parent.height - 4; color: "#000000"; opacity: 0.18 }

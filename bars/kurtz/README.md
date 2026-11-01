@@ -9,8 +9,6 @@ Farbschichten, optimistischer Nachthimmel). Der Name ist ein Wortspiel mit
 Der Style-Guide war für Hyprland/Niri/Sway geschrieben. Umgesetzt ist die
 Shell für **mango** (Tags über `mmsg`), wie alle Nachbar-Bars hier.
 
-![Leiste](docs/bar.png)
-
 ## Was drin ist
 
 | Teil | Wo | Was es macht |
@@ -27,16 +25,6 @@ Shell für **mango** (Tags über `mmsg`), wie alle Nachbar-Bars hier.
 | **Toasts** | `modules/notifications/` | Gleiten mit Overshoot rein, Urgency-Orb, Auto-Dismiss-Ring (pausiert bei Hover) |
 | **OSD** | `modules/osd/` | Lautstärke-Kapsel, springt bei jeder Änderung hoch |
 | **Session** | `modules/session/` | Vollbild-Sternenhimmel, großer Ringplanet, Ring-Buttons. **Gedrückt halten** zum Bestätigen (der Ring füllt sich) |
-
-| | | |
-|---|---|---|
-| ![](docs/control.png) | ![](docs/studio.png) | ![](docs/calendar.png) |
-| ![](docs/system.png) | ![](docs/notifications.png) | ![](docs/media.png) |
-
-![Launcher](docs/launcher.png)
-![Session](docs/session.png)
-![Toasts + OSD](docs/toasts-osd.png)
-![Inseln-Modus mit Sonnensystem-Tags](docs/bar-inseln.png)
 
 ### Kleine Überraschungen
 
@@ -216,7 +204,6 @@ Config.qml             Singleton: config.json (FileView, überwacht, eigenes Syn
 Theme.qml              Singleton: Farben, Himmel, Shading-Funktionen, Radien,
                        Abstände, Dauern, Schriften, Locale
 Glyphs.qml             Singleton: Nerd-Font-Codepoints mit Namen
-assets/noise.png       128x128 Rauschtextur (deterministisch erzeugt)
 components/            Orb, BlackHole, Glow, Ring, StarField, Backdrop, Pill, IconBadge,
                        Slider, Toggle, Chip, Tile, SettingRow, SectionTitle,
                        SkyOrb, CoverArt, Sparkline, NotifCard, KLabel, KIcon

@@ -113,8 +113,8 @@ Singleton {
     readonly property int statsInterval: 2000
 
     // ── server page (SSH over Tailscale) ─────────────────────
-    readonly property string serverHost: "PRIVATE_VALUE"             // Tailscale name
-    readonly property string serverFallback: "TAILSCALE_FALLBACK_IP" // used if the name doesn't resolve
+    readonly property string serverHost: ""                   // configure locally
+    readonly property string serverFallback: ""               // optional Tailscale IPv4 fallback
     readonly property string serverUser: ""                  // empty = same as local user
     readonly property int serverInterval: 3000
 

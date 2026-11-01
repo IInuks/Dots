@@ -14,7 +14,7 @@ QtObject {
     // watchChanges + reload() keeps `wal.parsed` current without a restart.
     property var wal: FileView {
         id: wal
-        path: "~/.cache/wal/colors.json"
+        path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
         printErrors: false
         watchChanges: true
         property var parsed: null

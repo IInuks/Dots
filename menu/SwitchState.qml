@@ -50,7 +50,7 @@ QtObject {
         root.started = true;
         root.running = true;
         root._append("$ switch-bar.sh " + barName, false);
-        proc.command = ["~/quickdots/menu/scripts/switch-bar.sh", barName];
+        proc.command = [Quickshell.shellDir + "/scripts/switch-bar.sh", barName];
         proc.running = true;
     }
 

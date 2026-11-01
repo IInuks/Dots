@@ -21,7 +21,7 @@ QtObject {
     readonly property string target: (user !== "" ? user + "@" : "") + host
 
     property int watchers: 0
-    readonly property bool active: watchers > 0 && MenuState.visible
+    readonly property bool active: watchers > 0 && MenuState.visible && host !== ""
 
     // "idle" | "connecting" | "ok" | "auth" (no key accepted)
     // | "check" (Tailscale SSH wants a browser login) | "offline"
@@ -49,7 +49,7 @@ QtObject {
 
     readonly property var rootDisk: disks.find(d => d.mount === "/") ?? disks[0] ?? { mount: "/", used: 0, total: 0 }
 
-    readonly property string script: Quickshell.env("HOME") + "/quickdots/bars/salbei/scripts/server.sh"
+    readonly property string script: Quickshell.shellDir + "/../bars/salbei/scripts/server.sh"
     function args(mode: string): var { return [script, mode, host, fallback, user]; }
 
     function openShell(): void { Quickshell.execDetached(["kitty", "-e", "sh"].concat(args("shell"))); }
@@ -205,8 +205,8 @@ QtObject {
         atomicWrites: true
         printErrors: false
         adapter: JsonAdapter {
-            property string host: "PRIVATE_VALUE"                // Tailscale name
-            property string fallback: "TAILSCALE_FALLBACK_IP"   // used if the name doesn't resolve
+            property string host: ""                     // configure locally in the Server tab
+            property string fallback: ""                 // optional Tailscale IPv4 fallback
             property string user: ""                     // empty = same as local user
         }
     }

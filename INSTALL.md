@@ -5,12 +5,11 @@
 Alpine/apk oder NixOS/Nix). Auf Bedrock Linux verwendet es den Arch-Stratum.
 Je nach Paketmanager kann die Installation nach dem sudo-Passwort fragen.
 
-Im Anschluss legt das Skript die Quickshell-State-Ordner an, verknüpft
-`menu`, `shellwall` und `blobball` unter `~/.config/quickshell`, kopiert die
-mitgelieferten Bilder nach `~/Pictures/Walpapers` (bestehende lokale Bilder
-bleiben erhalten) und ergänzt den Quickdots-Block in
-`~/.config/mango/config.conf`. Die Bar `simple` wird als Start-Bar gesetzt;
-die Auswahl kann danach im Quickdots-Menü geändert werden.
+Im Anschluss verknüpft das Skript `menu`, `shellwall` und `blobball` unter
+`~/.config/quickshell`. Danach kannst du zwischen vollständiger Einrichtung,
+nur Autostart oder Autostart plus Keybinds wählen. Eigene Wallpaper werden
+nicht mitgeliefert; optional hinzugefügte Bilder in `wallpapers/` werden
+kopiert.
 
 ```sh
 cd ~/quickdots
@@ -26,6 +25,5 @@ Hilfsprogramme und zeigt fehlende optionale Programme an. Quickshell,
 werden; der Wallpaper-Switcher benötigt `awww`, während Farbthemen matugen
 oder pywal nutzen.
 
-Die gebündelten Bilder stammen aus der lokalen Wallpaper-Sammlung des
-Maintainers. Vor einer Weiterverteilung bitte die jeweiligen Nutzungsrechte
-und Lizenzbedingungen der Bildquellen beachten.
+Serverdaten werden zuletzt abgefragt und können übersprungen werden. Sie
+werden lokal in `~/.local/state/quickshell/menu-server.json` gespeichert.

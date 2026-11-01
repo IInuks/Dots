@@ -6,8 +6,8 @@
     "radius": 8,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung launcher",
-        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung power",
-        "bind=CTRL+SUPER,g,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung tagesgeschenk"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/bescherung ipc call bescherung launcher",
+        "bind=SUPER,Escape,spawn,qs -p @QUICKDOTS_ROOT@/bars/bescherung ipc call bescherung power",
+        "bind=CTRL+SUPER,g,spawn,qs -p @QUICKDOTS_ROOT@/bars/bescherung ipc call bescherung tagesgeschenk"
     ]
 }

@@ -13,7 +13,8 @@
 
 set -euo pipefail
 
-HOST="~/quickdots/bars/salbei/widgets.qml"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+HOST="$ROOT/bars/salbei/widgets.qml"
 STATE_FILE="$HOME/.local/state/quickdots/active-bar"
 
 stop_host() {

@@ -904,13 +904,8 @@ Weiterbauen unbedingt im Hinterkopf behalten:
     per `Loader` bei jedem Öffnen neu instanziiertes eigenes `PanelWindow`
     statt eines `PopupShell`-Items im dauerhaften Bar-Fenster.
 
-Volle Details in `~/.claude/projects/-home-PRIVATE_VALUE/memory/` unter
-`feedback_quickshell_singleton_cross_dir_import.md`,
-`feedback_qml_behavior_on_property_naming_crash.md`,
-`feedback_qml_shape_repeater_item_delegate.md`,
-`feedback_qml_shape_chamfer_short_segments.md`,
-`feedback_imagemagick_multicrop_repage.md`,
-`feedback_qml_animation_on_bound_property.md`,
+Weitere technische Hinweise stehen in den jeweiligen Abschnitten dieser
+README und den Quellkommentaren.
 `feedback_qml_maptoitem_non_reactive.md`,
 `feedback_qml_qtobject_no_default_property.md`,
 `feedback_qml_singleton_name_shadows_builtin.md` und

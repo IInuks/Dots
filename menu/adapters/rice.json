@@ -6,8 +6,8 @@
     "radius": 0,
     "hasLauncher": false,
     "keybinds": [
-        "bind=SUPER,c,spawn,qs -p ~/quickdots/bars/rice ipc call controlcenter toggle",
-        "bind=CTRL+SUPER,w,spawn,qs -p ~/quickdots/bars/rice ipc call wallpapers toggle",
-        "bind=CTRL+SUPER,p,spawn,qs -p ~/quickdots/bars/rice ipc call power toggle"
+        "bind=SUPER,c,spawn,qs -p @QUICKDOTS_ROOT@/bars/rice ipc call controlcenter toggle",
+        "bind=CTRL+SUPER,w,spawn,qs -p @QUICKDOTS_ROOT@/bars/rice ipc call wallpapers toggle",
+        "bind=CTRL+SUPER,p,spawn,qs -p @QUICKDOTS_ROOT@/bars/rice ipc call power toggle"
     ]
 }

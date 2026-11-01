@@ -5,8 +5,9 @@
 set -euo pipefail
 
 SLUG="${1:?usage: delete-custom-bar.sh <slug>}"
-MENU_DIR="~/quickdots/menu"
-BARS_DIR="~/quickdots/bars"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+MENU_DIR="$ROOT/menu"
+BARS_DIR="$ROOT/bars"
 STATE_DIR="$HOME/.local/state/quickdots"
 
 ACTIVE="$(cat "$STATE_DIR/active-bar" 2>/dev/null || true)"

@@ -6,10 +6,10 @@
     "radius": 14,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/claude ipc call launcher toggle",
-        "bind=CTRL+SUPER,w,spawn,qs -p ~/quickdots/bars/claude ipc call wallpapers toggle",
-        "bind=CTRL+SUPER,s,spawn,qs -p ~/quickdots/bars/claude ipc call settings toggle",
-        "bind=CTRL+SUPER,n,spawn,qs -p ~/quickdots/bars/claude ipc call notifications toggle",
-        "bind=CTRL+SUPER,p,spawn,qs -p ~/quickdots/bars/claude ipc call power toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/claude ipc call launcher toggle",
+        "bind=CTRL+SUPER,w,spawn,qs -p @QUICKDOTS_ROOT@/bars/claude ipc call wallpapers toggle",
+        "bind=CTRL+SUPER,s,spawn,qs -p @QUICKDOTS_ROOT@/bars/claude ipc call settings toggle",
+        "bind=CTRL+SUPER,n,spawn,qs -p @QUICKDOTS_ROOT@/bars/claude ipc call notifications toggle",
+        "bind=CTRL+SUPER,p,spawn,qs -p @QUICKDOTS_ROOT@/bars/claude ipc call power toggle"
     ]
 }

@@ -13,7 +13,7 @@ QtObject {
     id: root
 
     readonly property string _statePath: Quickshell.env("HOME") + "/.local/state/quickshell/by-shell/"
-        + Qt.md5("~/quickdots/bars/shellbar/shell.qml") + "/theme.json"
+        + Qt.md5(Quickshell.shellDir + "/../../../bars/shellbar/shell.qml") + "/theme.json"
 
     property FileView _state: FileView {
         path: root._statePath

@@ -99,12 +99,6 @@ Item {
             color: Paper.accent
             transform: Scale { origin.x: 11; xScale: -1 }
 
-            Image {
-                anchors.fill: parent
-                source: "../assets/grain.png"
-                fillMode: Image.Tile
-                opacity: 0.18
-            }
             Text {
                 anchors.centerIn: parent
                 text: t.index + 1

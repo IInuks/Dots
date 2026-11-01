@@ -10,7 +10,7 @@ Item {
 
     // Echter Ordner -- ~/Pictures/Wallpaper aus dem Auftrag
     // existiert nicht, siehe README "Abweichungen vom Ursprungs-Prompt".
-    readonly property string _wallpaperDir: "~/Pictures/Walpapers"
+    readonly property string _wallpaperDir: Quickshell.env("HOME") + "/Pictures/Walpapers"
     property var _files: []
     property string _activePath: ""
 

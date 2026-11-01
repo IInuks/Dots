@@ -18,7 +18,7 @@ QtObject {
     id: root
 
     readonly property string bar: "salbei"
-    readonly property string barPath: Quickshell.env("HOME") + "/quickdots/bars/salbei"
+    readonly property string barPath: Quickshell.shellDir + "/../bars/salbei"
     readonly property bool loaded: _loaded
     property bool _loaded: false
 
@@ -321,7 +321,7 @@ QtObject {
 
     // make sure the host runs (or not) for the active bar, then check
     property Process _sync: Process {
-        command: [Quickshell.env("HOME") + "/quickdots/menu/scripts/widgets-host.sh", "sync"]
+        command: [Quickshell.shellDir + "/scripts/widgets-host.sh", "sync"]
         onExited: root._check.running = true
     }
 

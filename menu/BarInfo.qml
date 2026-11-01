@@ -37,7 +37,7 @@ QtObject {
     Component.onCompleted: rescan()
 
     property Process _infoProc: Process {
-        command: ["~/quickdots/menu/scripts/bar-info.py"]
+        command: [Quickshell.shellDir + "/scripts/bar-info.py"]
         stdout: StdioCollector {
             onStreamFinished: {
                 try { root.info = JSON.parse(text); } catch (e) { root.info = {}; }

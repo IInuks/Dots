@@ -6,6 +6,6 @@
     "radius": 24,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/polarlicht ipc call polarlicht toggle launcher"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/polarlicht ipc call polarlicht toggle launcher"
     ]
 }

@@ -6,9 +6,9 @@
     "radius": 22,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/drop ipc call launcher toggle",
-        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/drop ipc call session toggle",
-        "bind=CTRL+SUPER,c,spawn,qs -p ~/quickdots/bars/drop ipc call panel toggle control",
-        "bind=CTRL+SUPER,s,spawn,qs -p ~/quickdots/bars/drop ipc call panel toggle studio"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/drop ipc call launcher toggle",
+        "bind=SUPER,Escape,spawn,qs -p @QUICKDOTS_ROOT@/bars/drop ipc call session toggle",
+        "bind=CTRL+SUPER,c,spawn,qs -p @QUICKDOTS_ROOT@/bars/drop ipc call panel toggle control",
+        "bind=CTRL+SUPER,s,spawn,qs -p @QUICKDOTS_ROOT@/bars/drop ipc call panel toggle studio"
     ]
 }

@@ -11,7 +11,7 @@ import Quickshell.Io
 QtObject {
     id: root
 
-    readonly property string _klasicDir: "~/quickdots/bars/klasic"
+    readonly property string _klasicDir: Quickshell.shellDir + "/../../../bars/klasic"
 
     property FileView _settings: FileView {
         path: Quickshell.env("HOME") + "/.local/state/klasic/settings.json"

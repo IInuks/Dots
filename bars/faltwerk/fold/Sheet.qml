@@ -35,12 +35,4 @@ Rectangle {
         opacity: root.lift <= 0 ? 0 : 0.10
     }
 
-    Image {
-        anchors.fill: parent
-        anchors.margins: 1
-        visible: root.grainVisible
-        source: "../assets/grain.png"
-        fillMode: Image.Tile
-        opacity: Paper.grain
-    }
 }

@@ -50,12 +50,6 @@ Menu {
             color: Paper.paper
             border.width: 1
             border.color: Paper.deep
-            Image {
-                anchors.fill: parent
-                source: "../assets/grain.png"
-                fillMode: Image.Tile
-                opacity: Paper.grain
-            }
             // Faltlinien
             Rectangle { anchors.centerIn: parent; width: parent.width * 1.41; height: 1; rotation: 45; color: Paper.deep }
             Rectangle { anchors.centerIn: parent; width: parent.width * 1.41; height: 1; rotation: -45; color: Paper.deep }

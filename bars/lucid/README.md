@@ -229,7 +229,7 @@ selbst**. Zwei Wege, keiner davon von mir ungefragt ausgeführt:
 
 1. **Home-Manager nachrüsten** (größerer, eigenständiger Schritt: neuer
    Flake-Input, `home-manager.nixosModules.home-manager`-Import in
-   `configuration.nix`, `home-manager.users.PRIVATE_VALUE.imports = [
+   `configuration.nix`, `home-manager.users.<username>.imports = [
    lucid.homeManagerModules.lucidbar ]`, `programs.lucidbar.enable = true;`).
 2. **Ohne Home-Manager, analog zu allen anderen `bars/*` hier:**
    `environment.systemPackages` in `/etc/nixos/configuration.nix` um die

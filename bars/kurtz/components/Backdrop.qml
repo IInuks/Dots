@@ -105,14 +105,6 @@ Item {
             active: root.active
             inset: 4
         }
-        Image {
-            anchors.fill: parent
-            visible: Theme.grain
-            source: "../assets/noise.png"
-            fillMode: Image.Tile
-            opacity: Theme.grainOpacity
-            smooth: false
-        }
     }
     Rectangle {
         id: decorMask

@@ -16,7 +16,7 @@ import Quickshell.Io
 QtObject {
     id: root
 
-    readonly property string scriptDir: "~/quickdots/menu/scripts/"
+    readonly property string scriptDir: Quickshell.shellDir + "/scripts/"
 
     property var launchers: []     // [{ id, bar, title, description }]
     property var own: ({})         // bar -> has its own launcher

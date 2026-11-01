@@ -36,7 +36,7 @@ New style: add `styles/<Name>Style.qml` (props `ctl`, `preview`, function
 | `Styles.qml` | List of styles (id, file, name, description) |
 | `styles/` | The layouts, loaded by `components/Greeter.qml` |
 | `components/` | Greeter (state + style loader), StyleMenu, PasswordField, Backdrop, Shake, LoginCard, SessionPicker, PowerBar, Clock, IconButton |
-| `wallpaper.jpg` | Fallback background, copied at install (`$QD_GREETER_WALLPAPER` overrides it) |
+| Wallpaper | No image is bundled; set `QD_GREETER_WALLPAPER` to use a local image |
 | `scripts/wallsync.sh` | Runs in the session (mango `exec-once`) and copies the current awww wallpaper to the greeter |
 | `greetd/config.toml` | greetd config: cage + `strat arch qs` |
 | `install.sh` | Installs into the Void stratum, switches from LightDM, rolls back |

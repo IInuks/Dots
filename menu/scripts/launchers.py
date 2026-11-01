@@ -22,8 +22,9 @@ import os
 import re
 import sys
 
-MENU_DIR = "~/quickdots/menu"
-BARS_DIR = "~/quickdots/bars"
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+MENU_DIR = os.path.join(ROOT, "menu")
+BARS_DIR = os.path.join(ROOT, "bars")
 HOSTS_DIR = os.path.join(MENU_DIR, "launchers", "hosts")
 INFO_FILE = os.path.join(MENU_DIR, "launchers", "info.json")
 STATE_FILE = os.path.expanduser("~/.local/state/quickdots/launchers.json")
@@ -103,7 +104,8 @@ def launcher_bind(bar):
 
 
 def keybinds(bar):
-    binds = list(adapter(bar).get("keybinds", []))
+    binds = [b.replace("@QUICKDOTS_ROOT@", ROOT)
+             for b in adapter(bar).get("keybinds", [])]
     extra = launcher_bind(bar)
     if extra is None:
         return binds

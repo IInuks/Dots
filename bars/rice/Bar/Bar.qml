@@ -103,7 +103,7 @@ PanelWindow {
                 MouseArea {
                     anchors.fill: parent
                     anchors.margins: -6
-                    onClicked: Quickshell.execDetached(["qs", "-p", "~/quickdots/menu", "ipc", "call", "menu", "toggle"])
+                    onClicked: Quickshell.execDetached(["qs", "-p", Quickshell.shellDir + "/../../menu", "ipc", "call", "menu", "toggle"])
                 }
             }
 

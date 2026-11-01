@@ -66,7 +66,7 @@ QtObject {
             for (const k in root._pending) args.push(root._keys[k] + "=" + root._format(k, root._pending[k]));
             root._pending = ({});
             if (args.length === 0) return;
-            root._writer.command = [Quickshell.env("HOME") + "/quickdots/menu/scripts/set-blur.sh"].concat(args);
+            root._writer.command = [Quickshell.shellDir + "/scripts/set-blur.sh"].concat(args);
             root._writer.running = true;
         }
     }

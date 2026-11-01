@@ -318,7 +318,7 @@ Lade-Test ohne Klicks birgt dieses Risiko nicht). Eine echte
 das echte Live-Wallpaper geändert (`[config.wallpaper] set = true` in
 `config.toml` löst das als Nebeneffekt JEDES `matugen image`-Aufrufs aus,
 nicht nur aus der QML heraus) — sofort bemerkt und auf den vorherigen
-Stand (`wallhaven-9oxjvd_2560x1440.png`) zurückgesetzt; seither wird
+Stand auf das zuvor verwendete Wallpaper zurückgesetzt; seither wird
 matugen in dieser Session nicht mehr direkt manuell aufgerufen.
 
 ## Bekannte Lücken / Fahrplan

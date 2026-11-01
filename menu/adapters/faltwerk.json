@@ -6,6 +6,6 @@
     "radius": 5,
     "hasLauncher": true,
     "keybinds": [
-        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/faltwerk ipc call launcher toggle"
+        "bind=SUPER,space,spawn,qs -p @QUICKDOTS_ROOT@/bars/faltwerk ipc call launcher toggle"
     ]
 }

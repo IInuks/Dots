@@ -6,7 +6,8 @@ import Quickshell.Io
 import "../"
 
 // Remote server stats over SSH (scripts/server.sh). Polls only while
-// `watchers` > 0 (Server page open). Host and user live in Theme.qml.
+// `watchers` > 0 (Server page open). Connection details are stored locally
+// and shared with the quickdots menu.
 Singleton {
     id: root
 
@@ -31,9 +32,12 @@ Singleton {
     property real txRate: 0
     property var disks: []               // [{mount, used, total}]
 
-    readonly property string target: (Theme.serverUser !== "" ? Theme.serverUser + "@" : "") + Theme.serverHost
+    readonly property string host: file.adapter.host
+    readonly property string fallback: file.adapter.fallback
+    readonly property string user: file.adapter.user
+    readonly property string target: (user !== "" ? user + "@" : "") + host
     readonly property string script: Quickshell.shellDir + "/scripts/server.sh"
-    function args(mode) { return [script, mode, Theme.serverHost, Theme.serverFallback, Theme.serverUser]; }
+    function args(mode) { return [script, mode, host, fallback, user]; }
 
     function openShell() { Ui.terminal(["-e", "sh"].concat(args("shell"))); }
     function setupKey() { Ui.terminal(["-e", "sh"].concat(args("setup"))); }
@@ -115,7 +119,7 @@ Singleton {
     }
 
     function poll() {
-        if (proc.running) return;
+        if (proc.running || host === "") return;
         if (status === "idle") status = "connecting";
         proc.running = true;
     }
@@ -124,9 +128,20 @@ Singleton {
 
     Timer {
         interval: Theme.serverInterval
-        running: root.watchers > 0
+        running: root.watchers > 0 && root.host !== ""
         repeat: true
         triggeredOnStart: true
         onTriggered: root.poll()
+    }
+
+    property FileView file: FileView {
+        path: Quickshell.env("HOME") + "/.local/state/quickshell/menu-server.json"
+        watchChanges: true
+        printErrors: false
+        adapter: JsonAdapter {
+            property string host: ""
+            property string fallback: ""
+            property string user: ""
+        }
     }
 }

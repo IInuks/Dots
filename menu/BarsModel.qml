@@ -9,7 +9,7 @@ import Quickshell.Io
 QtObject {
     id: root
 
-    readonly property string barsPath: "~/quickdots/bars"
+    readonly property string barsPath: Quickshell.shellDir + "/../bars"
     property var barNames: []
 
     property Process _scanProc: Process {

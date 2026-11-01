@@ -13,7 +13,8 @@ import os
 import re
 import sys
 
-BARS = "~/quickdots/bars"
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BARS = os.path.join(ROOT, "bars")
 MAX_CHARS = 420
 
 

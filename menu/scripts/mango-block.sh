@@ -14,22 +14,27 @@
 
 set -euo pipefail
 
-MENU_DIR="~/quickdots/menu"
-BARS_DIR="~/quickdots/bars"
-MANGO_CONF="$HOME/.config/mango/config.conf"
+ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
+MENU_DIR="$ROOT/menu"
+BARS_DIR="$ROOT/bars"
+MANGO_CONF="${MANGO_CONF:-$HOME/.config/mango/config.conf}"
 
 BAR="${1:?usage: mango-block.sh <bar-name>}"
+MODE="${2:-all}"
+case "$MODE" in all|autostart) ;; *) echo "usage: mango-block.sh <bar-name> [all|autostart]" >&2; exit 2 ;; esac
 
-KEYBINDS="$("$MENU_DIR/scripts/launchers.py" keybinds "$BAR")"
+KEYBINDS=""
+if [[ "$MODE" == all ]]; then KEYBINDS="$("$MENU_DIR/scripts/launchers.py" keybinds "$BAR")"; fi
 
 BLOCK="exec-once=qs -p $MENU_DIR -n &
 exec-once=qs -p $BARS_DIR/$BAR -n &
 exec-once=$MENU_DIR/scripts/launcher-host.sh sync
 exec-once=$MENU_DIR/scripts/widgets-host.sh sync
-bind=CTRL+SUPER+ALT,space,spawn,$MENU_DIR/scripts/toggle-menu.sh"
+"
 
-if [ -n "$KEYBINDS" ]; then
+if [[ "$MODE" == all ]]; then
     BLOCK="$BLOCK
+bind=CTRL+SUPER+ALT,space,spawn,$MENU_DIR/scripts/toggle-menu.sh
 $KEYBINDS"
 fi
 
