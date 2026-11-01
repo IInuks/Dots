@@ -1,0 +1,15 @@
+{
+    "surface": "#14164A",
+    "foreground": "#F5F3FF",
+    "accent": "#38BDF8",
+    "barOpacity": 0.92,
+    "radius": 23,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/kurtz ipc call launcher toggle",
+        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/kurtz ipc call session toggle",
+        "bind=CTRL+SUPER,c,spawn,qs -p ~/quickdots/bars/kurtz ipc call panel toggle control",
+        "bind=CTRL+SUPER,s,spawn,qs -p ~/quickdots/bars/kurtz ipc call panel toggle studio",
+        "bind=CTRL+SUPER,n,spawn,qs -p ~/quickdots/bars/kurtz ipc call panel toggle notifications"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "surface": "#fbf3e4",
+    "foreground": "#2a2130",
+    "accent": "#d9434f",
+    "barOpacity": 1.0,
+    "radius": 8,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung launcher",
+        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung power",
+        "bind=CTRL+SUPER,g,spawn,qs -p ~/quickdots/bars/bescherung ipc call bescherung tagesgeschenk"
+    ]
+}

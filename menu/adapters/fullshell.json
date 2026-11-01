@@ -1,0 +1,12 @@
+{
+    "surface": "#17142a",
+    "foreground": "#eae6ff",
+    "accent": "#7c5cff",
+    "barOpacity": 0.78,
+    "radius": 22,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/fullshell ipc call launcher toggle",
+        "bind=CTRL+SUPER,w,spawn,qs -p ~/quickdots/bars/fullshell ipc call wallpaper toggle"
+    ]
+}

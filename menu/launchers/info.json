@@ -1,0 +1,78 @@
+{
+    "appsearch": {
+        "title": "App-Suche des Menüs",
+        "description": "Schlichtes Suchfeld mit gefilterter App-Liste direkt aus diesem Menü (SUPER+Leertaste). Farben und Deckkraft kommen live von der aktiven Bar, passt also zu jeder."
+    },
+    "blobs": {
+        "title": "Blob-Suche",
+        "description": "Suchfeld mit den sechs besten Treffern (Präfix vor Teilwort vor Buchstabenfolge) in den Farben von blobs. In der Bar ist es Teil der morphenden Mittel-Blase, hier eine eigene Karte."
+    },
+    "chamaeleon": {
+        "title": "Flyout-Launcher",
+        "description": "Klappt als Flyout von oben auf: Suche über alle Apps, Pfeiltasten + Enter, Buchstaben-Avatare statt Icons."
+    },
+    "claude": {
+        "title": "Dock-Launcher",
+        "description": "Steigt aus dem Dock auf: Suche mit eigenen Glyph-Icons, Pfeiltasten + Enter, abgedunkelter Hintergrund."
+    },
+    "eierschale": {
+        "title": "Nest",
+        "description": "Mittiger App-Starter, Treffer purzeln gestaffelt herein. Pfeile/Tab wählen, Enter startet. Ein führendes „=“ macht daraus einen Taschenrechner."
+    },
+    "fisheye": {
+        "title": "LCD-Launcher",
+        "description": "Kleines Menü im LCD-/Bevel-Look von fisheye mit Live-Suche und Icons aus dem Icon-Theme. Ohne die Bar mittig auf dem Bildschirm."
+    },
+    "fullshell": {
+        "title": "App-Raster",
+        "description": "Der Apps-Tab aus dem Command Center von fullshell: Live-Suche plus Raster mit sechs Spalten, Icons faden einzeln herein."
+    },
+    "kompass": {
+        "title": "Kompass-Launcher",
+        "description": "Metall-Panel mit Nieten, das oben mittig hereinfährt: Suche und Trefferliste im Kompass-Stil."
+    },
+    "kurtz": {
+        "title": "Launcher / Ereignishorizont",
+        "description": "Suchpille mit gerankten Treffern und runden Icon-Badges, „=“ für den Rechner. Ist in kurtz der Stil „orbit“ eingestellt, kommt stattdessen der Ereignishorizont mit kreisenden Treffern."
+    },
+    "lucid": {
+        "title": "Spotlight",
+        "description": "Spotlight-artiges Fenster mittig auf dem fokussierten Monitor: Suchfeld, bis zu acht Treffer, wächst mit der Trefferliste."
+    },
+    "lumen": {
+        "title": "Notch-Suche",
+        "description": "Die Fuzzy-Suche aus der Notch von lumen, merkt sich oft gestartete Apps. Hier als eigene Karte statt als Notch-Verwandlung."
+    },
+    "polarlicht": {
+        "title": "Polarlicht-Starter",
+        "description": "Große Karte mit Suche, Rechner („=“) und Befehlen („>“), in den adaptiven Polarlicht-Farben."
+    },
+    "quickbar": {
+        "title": "Such-Pille",
+        "description": "Die Suchpille von quickbar mit Treffer-Hervorhebung im Akzentton; die Ergebnisse hängen darunter in derselben Karte."
+    },
+    "ricev2": {
+        "title": "Parallel-Launcher",
+        "description": "Vollbild-Overlay mit drei Darstellungen (schräge Streifen, Waben oder Kacheln, je nach ricev2-Einstellung), Filter für Apps/Spiele/Steam."
+    },
+    "shellbar": {
+        "title": "Liquid-Launcher",
+        "description": "Die App-Liste aus dem Liquid-Uhrmenü von shellbar: Live-Suche über alle Apps, Pfeiltasten + Enter."
+    },
+    "simple": {
+        "title": "Simple-Launcher",
+        "description": "Schlichtes Overlay-Fenster mittig auf dem Bildschirm: Suchfeld und scrollbare Trefferliste."
+    },
+    "simplecrab": {
+        "title": "Simple-Launcher (Krabbe)",
+        "description": "Derselbe schlichte Launcher wie bei simple, in den Farben von simplecrab."
+    },
+    "faltwerk": {
+        "title": "Gefalteter Bogen",
+        "description": "Ein zweimal gefalteter Papierbogen, der sich in Perspektive auffaltet: erst die untere, dann die rechte Hälfte. Apps liegen als Origami-Kärtchen mit Eselsohr darauf, Enter faltet die gewählte zum Papierflieger, der davonfliegt. „> befehl“ führt einen Shell-Befehl aus."
+    },
+    "drop": {
+        "title": "Quelle",
+        "description": "Tropft als Karte aus der Leiste und zerfließt mit Gelee-Überschwingen. Treffer perlen gestaffelt herab, Pfeile/Tab wählen, Enter startet, ein führendes „=“ rechnet. Ohne die Bar mittig und ohne Hals."
+    }
+}

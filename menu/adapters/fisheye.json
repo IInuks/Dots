@@ -1,0 +1,11 @@
+{
+    "surface": "#1c1c26",
+    "foreground": "#e8e8f0",
+    "accent": "#5b8cff",
+    "barOpacity": 1.0,
+    "radius": 4,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/fisheye ipc call launcher toggle"
+    ]
+}

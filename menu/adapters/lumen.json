@@ -1,0 +1,11 @@
+{
+    "surface": "#181410",
+    "foreground": "#f0e6d2",
+    "accent": "#ffb84d",
+    "barOpacity": 1.0,
+    "radius": 0,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/lumen ipc call launcher toggle"
+    ]
+}

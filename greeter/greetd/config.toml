@@ -1,0 +1,14 @@
+# greetd config for the quickdots greeter (installed to /etc/greetd/ in the
+# Void stratum by install.sh).
+#
+# cage is a kiosk compositor: it shows the greeter fullscreen and exits with
+# it. Quickshell lives in the Arch stratum, hence `strat arch`; the greeter
+# files sit in Void's /etc, reached through /bedrock/strata/void.
+# scripts/launch.sh sets up the environment and logging.
+
+[terminal]
+vt = 7
+
+[default_session]
+command = "cage -s -- /bedrock/bin/strat arch /bin/sh /bedrock/strata/void/etc/greetd/quickdots/scripts/launch.sh"
+user = "_greeter"

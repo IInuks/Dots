@@ -1,0 +1,61 @@
+.pragma library
+
+// Inhalt der Tagesgeschenke: [Art, Text]
+
+var kinds = {
+        fakt: { label: "Fakt des Tages", icon: "\uf0eb" },
+        mission: { label: "Mini-Mission", icon: "\uf024" },
+        kompliment: { label: "Kompliment", icon: "\uf004" },
+        frage: { label: "Frage des Tages", icon: "\uf128" }
+    };
+
+var pool = [
+        ["fakt", "Ein Oktopus hat drei Herzen und blaues Blut."],
+        ["fakt", "Bananen sind botanisch gesehen Beeren, Erdbeeren dagegen nicht."],
+        ["fakt", "Auf der Venus dauert ein Tag länger als ein ganzes Venusjahr."],
+        ["fakt", "Wombats hinterlassen würfelförmigen Kot."],
+        ["fakt", "Der Eiffelturm wird im Sommer durch die Wärme um bis zu etwa 15 cm höher."],
+        ["fakt", "Seeotter halten sich beim Schlafen manchmal an den Pfoten, damit sie nicht auseinandertreiben."],
+        ["fakt", "Ein Blitz ist ungefähr fünfmal heißer als die Oberfläche der Sonne."],
+        ["fakt", "Die allererste Webseite ist immer noch online: info.cern.ch"],
+        ["fakt", "Linus Torvalds kündigte Linux 1991 als „nur ein Hobby, nichts Großes und Professionelles“ an."],
+        ["fakt", "1947 fand man in einem Harvard-Rechner eine echte Motte. Sie wurde als „first actual case of bug being found“ ins Logbuch geklebt."],
+        ["fakt", "Flamingos sind rosa, weil ihre Nahrung Carotinoide enthält."],
+        ["fakt", "Ein Teelöffel Neutronenstern-Materie würde auf der Erde Milliarden Tonnen wiegen."],
+        ["fakt", "Das Nationaltier Schottlands ist das Einhorn."],
+        ["fakt", "Der Britisch-Sansibarische Krieg von 1896 dauerte weniger als eine Stunde."],
+        ["fakt", "Ein Jahr auf dem Merkur dauert nur 88 Erdtage."],
+        ["fakt", "Kraken können mit ihren Saugnäpfen schmecken."],
+        ["fakt", "In der Schweiz darf man ein Meerschweinchen nicht allein halten, weil sie soziale Tiere sind."],
+        ["fakt", "Die Mona Lisa hat keine sichtbaren Augenbrauen."],
+        ["fakt", "Honig verdirbt bei richtiger Lagerung praktisch nie."],
+        ["fakt", "Faultiere können länger die Luft anhalten als Delfine."],
+        ["mission", "Trink jetzt ein Glas Wasser. Dein Gehirn sagt danke."],
+        ["mission", "Steh auf und streck dich 30 Sekunden lang. Ganz lang."],
+        ["mission", "Schreib jemandem, an den du lange nicht gedacht hast."],
+        ["mission", "Räum genau fünf Dinge von deinem Schreibtisch weg. Nicht mehr, nicht weniger."],
+        ["mission", "Schau 20 Sekunden lang aus dem Fenster in die Ferne. Deine Augen brauchen das."],
+        ["mission", "Lern heute ein neues Tastenkürzel und benutz es dreimal."],
+        ["mission", "Lösch eine Datei oder ein Programm, das du nie benutzt."],
+        ["mission", "Hör ein Lied, das du seit Jahren nicht mehr gehört hast."],
+        ["mission", "Mach heute ein Foto von etwas völlig Unscheinbarem."],
+        ["mission", "Schreib heute Abend drei Dinge auf, die gut gelaufen sind."],
+        ["mission", "Lies die man-Page eines Befehls, den du täglich benutzt. Irgendwas steht da, das du nicht kanntest."],
+        ["mission", "Mach eine Pause, bevor du sie brauchst."],
+        ["kompliment", "Deine Dotfiles sind schöner als die von 95 % aller Menschen. (Statistik frei erfunden, stimmt aber trotzdem.)"],
+        ["kompliment", "Du hast heute schon mehr geschafft, als du denkst."],
+        ["kompliment", "Irgendwo ist gerade jemand froh, dass es dich gibt."],
+        ["kompliment", "Dein Geschmack bei Farbpaletten ist ausgezeichnet."],
+        ["kompliment", "Ohne dich gäbe es diese Leiste nicht. Danke, dass du mich ausgepackt hast."],
+        ["kompliment", "Fehler sind nur Bugs mit Lernpotenzial, und du lernst schnell."],
+        ["kompliment", "Heute ist ein guter Tag, um ein bisschen stolz auf dich zu sein."],
+        ["kompliment", "Wer so viel an seinem Desktop feilt, hat definitiv Stil."],
+        ["frage", "Welches Geräusch magst du am liebsten?"],
+        ["frage", "Wenn du heute eine Superkraft hättest, welche wäre es?"],
+        ["frage", "Was war das beste Geschenk, das du je bekommen hast?"],
+        ["frage", "Welche Kleinigkeit hat dich diese Woche glücklich gemacht?"],
+        ["frage", "Welches Programm würdest du auf eine einsame Insel mitnehmen?"],
+        ["frage", "Welche Farbe hätte dein Tag heute?"],
+        ["frage", "Was würdest du tun, wenn du morgen spontan frei hättest?"],
+        ["frage", "Welches Essen erinnert dich an deine Kindheit?"]
+    ];

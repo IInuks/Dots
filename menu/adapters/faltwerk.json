@@ -1,0 +1,11 @@
+{
+    "surface": "#f3ede1",
+    "foreground": "#2b2622",
+    "accent": "#d9472b",
+    "barOpacity": 1.0,
+    "radius": 5,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/faltwerk ipc call launcher toggle"
+    ]
+}

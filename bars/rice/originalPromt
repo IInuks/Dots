@@ -1,0 +1,48 @@
+Baue mir eine Wayland-Desktop-Shell für MangoWC auf NixOS. Ich nutze KEIN
+Home-Manager – alles über configuration.nix bzw. normale Config-Dateien in
+~/.config. Nur Bar und Menüs, kein Wallpaper-Handling, keine Live-Wallpaper.
+
+=== BAR ===
+Position: [oben/unten], Höhe [XX px], [über volle Breite / schwebend mit XX px
+Abstand zu den Rändern], Eckenradius [XX px].
+Hintergrund: [Farbe/Transparenz, z.B. #1e1e2e bei 85% Deckkraft], [mit/ohne]
+Blur, [mit/ohne] Rand ([XX px, Farbe]), [mit/ohne] Schatten.
+Innenabstand: [XX px] horizontal, Abstand zwischen Modulen [XX px].
+Font: [Name], [Größe], [Gewicht]. Icons: [Nerd Font / Material Symbols].
+
+Module links: [z.B. Launcher-Icon, Workspaces als Pills, aktiver Fenstertitel]
+Module Mitte: [z.B. Uhrzeit + Datum]
+Module rechts: [z.B. Tray, Media, Netzwerk, Bluetooth, Volume, Akku, Power]
+Workspace-Darstellung: [Punkte/Zahlen/Pills], aktiver Workspace [wie
+hervorgehoben], belegte vs. leere Workspaces [Unterschied].
+Hover-Effekt: [was passiert].
+
+=== MENÜS / PANELS ===
+Welche Panels: [Launcher, Control-Center, Notification-Center, Kalender,
+Media-Player, Power-Menü, ...]
+Öffnen: [Klick auf welches Modul / Keybind], erscheinen [wo], Animation
+[Slide/Fade, Dauer].
+Aussehen: gleiche Farbwelt wie die Bar, Radius [XX px], Breite [XX px],
+Innenaufbau [z.B. Toggle-Kacheln oben, Slider für Volume/Brightness darunter,
+Profilzeile ganz oben].
+
+=== THEMING ===
+Adaptives Theming: Farbpalette wird automatisch aus dem aktuellen statischen
+Wallpaper generiert (Material-You-Stil) und auf Bar, Menüs sowie GTK-, Qt- und
+Terminal-Apps angewendet. Automatischer Light/Dark-Wechsel.
+
+=== ANFORDERUNGEN AN DIE ANTWORT ===
+1. Nenne konkrete Pakete aus nixpkgs und die environment.systemPackages-Einträge.
+2. Vollständige Config-Dateien, keine Fragmente.
+3. Autostart der Shell aus der MangoWC-Config heraus zeigen.
+4. Keybinds für die Panels in der Mango-Config zeigen.
+5. Erkläre, wie die Farbgenerierung bei Wallpaper-Wechsel neu ausgelöst wird.
+
+=== WALLPAPER-SWITCHER ===
+Ein eigenes Panel mit Vorschau-Grid aller Bilder aus [~/Pictures/Walpapers],
+[X] Spalten, Thumbnails mit Radius [XX px], aktives Wallpaper markiert.
+Klick setzt das Wallpaper mit [Fade/Wipe]-Übergang über [swww / hyprpaper /
+swaybg] und stößt anschließend automatisch die Farbgenerierung neu an.
+Nur statische Bilder – keine Videos, kein mpvpaper, keine Wallhaven-
+oder Online-Anbindung.
+Optional: Zufalls-Button und Timer alle [XX] Minuten.

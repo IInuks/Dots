@@ -1,0 +1,9 @@
+{
+    "surface": "#141619",
+    "foreground": "#c9ccd1",
+    "accent": "#8a8f98",
+    "barOpacity": 0.85,
+    "radius": 8,
+    "hasLauncher": false,
+    "keybinds": []
+}

@@ -1,0 +1,11 @@
+{
+    "surface": "#1b1f27",
+    "foreground": "#e6e6ee",
+    "accent": "#c9963f",
+    "barOpacity": 1.0,
+    "radius": 10,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/kompass ipc call launcher toggle"
+    ]
+}

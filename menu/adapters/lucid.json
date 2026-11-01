@@ -1,0 +1,11 @@
+{
+    "surface": "#0f0e13",
+    "foreground": "#e6e1e9",
+    "accent": "#8ab4f8",
+    "barOpacity": 1.0,
+    "radius": 22,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/lucid ipc call launcher toggle"
+    ]
+}

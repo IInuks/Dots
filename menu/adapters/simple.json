@@ -1,0 +1,11 @@
+{
+    "surface": "#1c1b1a",
+    "foreground": "#d8d4cf",
+    "accent": "#f2a0b5",
+    "barOpacity": 1.0,
+    "radius": 0,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/simple ipc call launcher toggle"
+    ]
+}

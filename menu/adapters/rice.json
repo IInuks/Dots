@@ -1,0 +1,13 @@
+{
+    "surface": "#1b1e24",
+    "foreground": "#e2e5ec",
+    "accent": "#8ab4f8",
+    "barOpacity": 0.92,
+    "radius": 0,
+    "hasLauncher": false,
+    "keybinds": [
+        "bind=SUPER,c,spawn,qs -p ~/quickdots/bars/rice ipc call controlcenter toggle",
+        "bind=CTRL+SUPER,w,spawn,qs -p ~/quickdots/bars/rice ipc call wallpapers toggle",
+        "bind=CTRL+SUPER,p,spawn,qs -p ~/quickdots/bars/rice ipc call power toggle"
+    ]
+}

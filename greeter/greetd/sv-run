@@ -1,0 +1,13 @@
+#!/bin/sh
+# runit run script for greetd (installed to /etc/sv/greetd/run by install.sh).
+#
+# Void's stock script is just `exec greetd`. At boot greetd can win the race
+# against the elogind service: the greeter's PAM login then DBus-activates
+# elogind directly, without elogind.wrapper, so /run/user/<uid> is created on
+# the bare /run. A moment later the wrapper mounts a tmpfs over /run/user,
+# which hides the greeter's XDG_RUNTIME_DIR (wayland socket included) and qs
+# crashes. Wait until the wrapper has done its mounts; runit retries in 1s.
+exec 2>&1
+sv check elogind >/dev/null || exit 1
+mountpoint -q /run/user || exit 1
+exec greetd

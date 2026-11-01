@@ -1,0 +1,43 @@
+pragma Singleton
+import QtQuick
+import Quickshell
+
+// Nerd-Font-Glyphen (Material Design, nf-md-*) nach Namen.
+Singleton {
+    readonly property string water: String.fromCodePoint(0xf058c)
+    readonly property string waves: String.fromCodePoint(0xf078d)
+    readonly property string rain: String.fromCodePoint(0xf0597)
+    readonly property string search: String.fromCodePoint(0xf0349)
+    readonly property string volHigh: String.fromCodePoint(0xf057e)
+    readonly property string volMid: String.fromCodePoint(0xf0580)
+    readonly property string volLow: String.fromCodePoint(0xf057f)
+    readonly property string volOff: String.fromCodePoint(0xf0581)
+    readonly property string mic: String.fromCodePoint(0xf036c)
+    readonly property string micOff: String.fromCodePoint(0xf036d)
+    readonly property string power: String.fromCodePoint(0xf0425)
+    readonly property string restart: String.fromCodePoint(0xf0709)
+    readonly property string logout: String.fromCodePoint(0xf0343)
+    readonly property string sleep: String.fromCodePoint(0xf04b2)
+    readonly property string cpu: String.fromCodePoint(0xf0ee0)
+    readonly property string memory: String.fromCodePoint(0xf035b)
+    readonly property string temp: String.fromCodePoint(0xf050f)
+    readonly property string tune: String.fromCodePoint(0xf1542)
+    readonly property string apps: String.fromCodePoint(0xf003b)
+    readonly property string left: String.fromCodePoint(0xf0141)
+    readonly property string right: String.fromCodePoint(0xf0142)
+    readonly property string speaker: String.fromCodePoint(0xf04c3)
+    readonly property string headphones: String.fromCodePoint(0xf02cb)
+    readonly property string refresh: String.fromCodePoint(0xf0450)
+    readonly property string image: String.fromCodePoint(0xf02e9)
+    readonly property string clock: String.fromCodePoint(0xf0150)
+    readonly property string calendar: String.fromCodePoint(0xf0e17)
+    readonly property string check: String.fromCodePoint(0xf012c)
+    readonly property string window: String.fromCodePoint(0xf05af)
+    readonly property string sparkle: String.fromCodePoint(0xf0674)
+    readonly property string swatch: String.fromCodePoint(0xf08b5)
+    readonly property string close: String.fromCodePoint(0xf0156)
+    readonly property string drag: String.fromCodePoint(0xf01dd)
+    readonly property string save: String.fromCodePoint(0xf0193)
+    readonly property string trash: String.fromCodePoint(0xf01b4)
+    readonly property string undo: String.fromCodePoint(0xf054c)
+}

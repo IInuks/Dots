@@ -1,0 +1,11 @@
+{
+    "surface": "#10181f",
+    "foreground": "#e9eef3",
+    "accent": "#84a5eb",
+    "barOpacity": 0.9,
+    "radius": 24,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/polarlicht ipc call polarlicht toggle launcher"
+    ]
+}

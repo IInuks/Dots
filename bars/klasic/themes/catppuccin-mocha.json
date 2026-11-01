@@ -1,0 +1,10 @@
+{
+  "name": "Catppuccin Mocha",
+  "background": "#1e1e2e",
+  "surface": "#313244",
+  "text": "#cdd6f4",
+  "textMuted": "#a6adc8",
+  "accent": "#89b4fa",
+  "border": "#45475a",
+  "urgent": "#f38ba8"
+}

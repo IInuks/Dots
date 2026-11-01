@@ -1,0 +1,15 @@
+{
+    "surface": "#121A14",
+    "foreground": "#E8EDE6",
+    "accent": "#A8D5A2",
+    "barOpacity": 0.62,
+    "radius": 18,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/salbei ipc call launcher toggle",
+        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/salbei ipc call power toggle",
+        "bind=CTRL+SUPER,c,spawn,qs -p ~/quickdots/bars/salbei ipc call controlcenter toggle",
+        "bind=CTRL+SUPER,k,spawn,qs -p ~/quickdots/bars/salbei ipc call calendar toggle",
+        "bind=CTRL+SUPER,n,spawn,qs -p ~/quickdots/bars/salbei ipc call controlcenter page notifications"
+    ]
+}

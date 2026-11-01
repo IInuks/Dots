@@ -1,0 +1,15 @@
+{
+    "surface": "#0d191e",
+    "foreground": "#ebf1f4",
+    "accent": "#47bef5",
+    "barOpacity": 0.92,
+    "radius": 18,
+    "hasLauncher": true,
+    "keybinds": [
+        "bind=SUPER,space,spawn,qs -p ~/quickdots/bars/eierschale ipc call launcher toggle",
+        "bind=SUPER,Escape,spawn,qs -p ~/quickdots/bars/eierschale ipc call session toggle",
+        "bind=CTRL+SUPER,e,spawn,qs -p ~/quickdots/bars/eierschale ipc call egg crack",
+        "bind=CTRL+SUPER,c,spawn,qs -p ~/quickdots/bars/eierschale ipc call panel toggle control",
+        "bind=CTRL+SUPER,s,spawn,qs -p ~/quickdots/bars/eierschale ipc call panel toggle studio"
+    ]
+}
