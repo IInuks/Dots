@@ -35,7 +35,7 @@ QtObject {
     }
 
     property FileView _wal: FileView {
-        path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
+        path: Quickshell.env("HOME") + "/.cache/ricev2/colors.json"
         printErrors: false
         watchChanges: true
         property var parsed: null
@@ -45,9 +45,9 @@ QtObject {
         onFileChanged: reload()
     }
 
-    readonly property color adaptiveSurface: _wal.parsed ? _wal.parsed.special.background : "#1c1c26"
-    readonly property color adaptiveForeground: _wal.parsed ? _wal.parsed.special.foreground : "#e8e8f0"
-    readonly property color adaptiveAccent: _wal.parsed ? _wal.parsed.colors.color4 : "#5b8cff"
+    readonly property color adaptiveSurface: _wal.parsed ? (_wal.parsed.surface || _wal.parsed.background) : "#1c1c26"
+    readonly property color adaptiveForeground: _wal.parsed ? (_wal.parsed.surfaceText || _wal.parsed.backgroundText) : "#e8e8f0"
+    readonly property color adaptiveAccent: _wal.parsed ? _wal.parsed.primary : "#5b8cff"
 
     readonly property var presets: ({
         adaptive: { surface: adaptiveSurface, foreground: adaptiveForeground, accent: adaptiveAccent },

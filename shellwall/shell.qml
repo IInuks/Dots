@@ -26,6 +26,21 @@ ShellRoot {
         return root.resolutionCache[path] || "…";
     }
 
+    function regeneratePalette(path) {
+        if (!config.runMatugen || !path) return;
+        if (matugenProcess.running) {
+            matugenProcess.pendingPath = path;
+            matugenProcess.running = false;
+            return;
+        }
+        matugenProcess.targetPath = path;
+        matugenProcess.command = [
+            "matugen", "image", path,
+            "--mode", "dark", "--source-color-index", "0", "--json", "hex", "--quiet"
+        ];
+        matugenProcess.running = true;
+    }
+
     // Loest die Bildaufloesung per `identify` (ImageMagick) auf und cached sie.
     // Wird debounced vom Overlay aus aufgerufen, daher genuegt ein einzelner
     // Process ohne Warteschlange.
@@ -44,14 +59,12 @@ ShellRoot {
             "--transition-type", config.transitionType,
             "--transition-fps", String(config.transitionFps)
         ]);
-        // haelt shellbars adaptives Theme (liest ~/.cache/wal/colors.json)
-        // in Sync, genau wie quickwalls bisheriges applyPywal.
+        // Aktualisiert zusaetzlich die pywal-Palette fuer andere Verbraucher.
+        // shellbar liest die von matugen erzeugte ricev2-Palette weiter unten.
         if (config.runPywal) {
             Quickshell.execDetached(["wal", "-i", path, "-n", "-q"]);
         }
-        if (config.runMatugen) {
-            Quickshell.execDetached(["matugen", "image", path, "--mode", "dark", "--source-color-index", "0", "--quiet"]);
-        }
+        root.regeneratePalette(path);
     }
 
     function refreshWallpapers() {
@@ -86,6 +99,21 @@ ShellRoot {
                     root.resolutionCache[resolveProcess.targetPath] = dims.replace("x", " × ");
                     root.resolutionVersion++;
                 }
+            }
+        }
+    }
+
+    Process {
+        id: matugenProcess
+        property string targetPath: ""
+        property string pendingPath: ""
+        onExited: code => {
+            if (code !== 0)
+                console.warn("shellwall: matugen failed for", targetPath, "(exit", code + ")");
+            if (pendingPath) {
+                const nextPath = pendingPath;
+                pendingPath = "";
+                root.regeneratePalette(nextPath);
             }
         }
     }

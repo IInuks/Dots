@@ -20,9 +20,9 @@ QtObject {
     property string transitionType: "any"
     property int transitionFps: 60
 
-    // shellbar's "Adaptive"-Theme (siehe ~/shellbar/Theme.qml) liest
-    // ~/.cache/wal/colors.json und braucht dafuer einen pywal-Lauf pro
-    // Wallpaper-Wechsel, genau wie quickwall das bisher gemacht hat.
+    // Optionale pywal-Palette fuer Verbraucher, die ~/.cache/wal/colors.json
+    // lesen. shellbar's "Adaptive"-Theme verwendet die Material-You-Palette
+    // unter ~/.cache/ricev2/colors.json, die der matugen-Lauf unten erzeugt.
     property bool runPywal: true
 
     // ricev2's Colors.qml liest ~/.cache/ricev2/colors.json, geschrieben

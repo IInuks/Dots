@@ -9,12 +9,13 @@ import Quickshell.Io
 QtObject {
     id: theme
 
-    // Live wallpaper palette for the "Adaptive" preset below. quickwall reruns
-    // pywal on every wallpaper change and rewrites this file in place, so
-    // watchChanges + reload() keeps `wal.parsed` current without a restart.
+    // Live wallpaper palette for the "Adaptive" preset below. shellwall runs
+    // matugen and writes Material You roles to ricev2/colors.json. Keep the
+    // file watcher for immediate updates, with a periodic reload as a fallback
+    // when the writer replaces the file and the watcher loses track of it.
     property var wal: FileView {
         id: wal
-        path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
+        path: Quickshell.env("HOME") + "/.cache/ricev2/colors.json"
         printErrors: false
         watchChanges: true
         property var parsed: null
@@ -28,45 +29,31 @@ QtObject {
         onFileChanged: reload()
     }
 
+    property Timer reloadTimer: Timer {
+        interval: 1500
+        repeat: true
+        running: theme.presetKey === "adaptive" && !theme.useCustomColors
+        onTriggered: wal.reload()
+    }
+
     function relLuminance(hex) {
         const c = Qt.color(hex);
         return 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
     }
 
-    readonly property color adaptiveSurface: wal.parsed ? wal.parsed.special.background : "#1c1c26"
-    readonly property color adaptiveForeground: wal.parsed ? wal.parsed.special.foreground : "#e8e8f0"
-    readonly property color adaptiveMutedText: wal.parsed ? wal.parsed.colors.color8 : "#8d8da0"
-    readonly property color adaptiveAccent: wal.parsed ? wal.parsed.colors.color4 : "#5b8cff"
-    // pywal's palette isn't guaranteed to contain an actual red, so urgent
-    // stays a fixed alert red, just picked light/dark to fit the wallpaper's
-    // background instead of the fixed hue every other preset uses.
-    readonly property color adaptiveUrgent: wal.parsed && relLuminance(wal.parsed.special.background) > 0.5 ? "#c81e28" : "#ff5c66"
+    readonly property color adaptiveSurface: wal.parsed ? (wal.parsed.surface || wal.parsed.background) : "#1c1c26"
+    readonly property color adaptiveForeground: wal.parsed ? (wal.parsed.surfaceText || wal.parsed.backgroundText) : "#e8e8f0"
+    readonly property color adaptiveMutedText: wal.parsed ? wal.parsed.outline : "#8d8da0"
+    readonly property color adaptiveAccent: wal.parsed ? wal.parsed.primary : "#5b8cff"
+    readonly property color adaptiveUrgent: wal.parsed ? wal.parsed.error : "#ff5c66"
 
+    // Keep only labels in this map. Palette colors are resolved by functions
+    // below so bindings read the current adaptive palette every time; values
+    // embedded in a JavaScript object literal would be captured only once.
     readonly property var presets: ({
-        adaptive: {
-            label: "Adaptive",
-            surface: adaptiveSurface,
-            foreground: adaptiveForeground,
-            mutedText: adaptiveMutedText,
-            accent: adaptiveAccent,
-            urgent: adaptiveUrgent
-        },
-        mono: {
-            label: "Mono",
-            surface: "#ffffff",
-            foreground: "#111111",
-            mutedText: "#8a8a8a",
-            accent: "#111111",
-            urgent: "#d1341f"
-        },
-        monoInvert: {
-            label: "Mono Invert",
-            surface: "#000000",
-            foreground: "#ffffff",
-            mutedText: "#8a8a8a",
-            accent: "#ffffff",
-            urgent: "#ff6b52"
-        }
+        adaptive: { label: "Adaptive" },
+        mono: { label: "Mono" },
+        monoInvert: { label: "Mono Invert" }
     })
 
     readonly property var presetOrder: ["adaptive", "mono", "monoInvert"]
@@ -88,22 +75,39 @@ QtObject {
 
     readonly property color customSurfaceOpaque: Qt.rgba(customSurfaceR / 255, customSurfaceG / 255, customSurfaceB / 255, 1)
     readonly property color customAccentColor: Qt.rgba(customAccentR / 255, customAccentG / 255, customAccentB / 255, 1)
-    readonly property var customPreset: ({
-        label: "Custom",
-        surface: Qt.rgba(customSurfaceR / 255, customSurfaceG / 255, customSurfaceB / 255, customOpacity),
-        foreground: customForegroundLight ? "#f2f2f6" : "#101014",
-        mutedText: customForegroundLight ? "#9a9aa8" : "#6a6a72",
-        accent: customAccentColor,
-        urgent: relLuminance(customSurfaceOpaque) > 0.5 ? "#c81e28" : "#ff5c66"
-    })
+    function presetSurface(key) {
+        if (key === "adaptive") return adaptiveSurface;
+        return key === "monoInvert" ? "#000000" : "#ffffff";
+    }
+    function presetForeground(key) {
+        if (key === "adaptive") return adaptiveForeground;
+        return key === "monoInvert" ? "#ffffff" : "#111111";
+    }
+    function presetMutedText(key) {
+        return key === "adaptive" ? adaptiveMutedText : "#8a8a8a";
+    }
+    function presetAccent(key) {
+        if (key === "adaptive") return adaptiveAccent;
+        return key === "monoInvert" ? "#ffffff" : "#111111";
+    }
+    function presetUrgent(key) {
+        if (key === "adaptive") return adaptiveUrgent;
+        return key === "monoInvert" ? "#ff6b52" : "#d1341f";
+    }
 
-    readonly property var current: useCustomColors ? customPreset : (presets[presetKey] ?? presets.mono)
-
-    readonly property color surface: current.surface
-    readonly property color foreground: current.foreground
-    readonly property color mutedText: current.mutedText
-    readonly property color accent: current.accent
-    readonly property color urgent: current.urgent
+    readonly property color surface: useCustomColors
+        ? Qt.rgba(customSurfaceR / 255, customSurfaceG / 255, customSurfaceB / 255, customOpacity)
+        : presetSurface(presetKey)
+    readonly property color foreground: useCustomColors
+        ? (customForegroundLight ? "#f2f2f6" : "#101014")
+        : presetForeground(presetKey)
+    readonly property color mutedText: useCustomColors
+        ? (customForegroundLight ? "#9a9aa8" : "#6a6a72")
+        : presetMutedText(presetKey)
+    readonly property color accent: useCustomColors ? customAccentColor : presetAccent(presetKey)
+    readonly property color urgent: useCustomColors
+        ? (relLuminance(customSurfaceOpaque) > 0.5 ? "#c81e28" : "#ff5c66")
+        : presetUrgent(presetKey)
     // Color of the PanelWindow itself where no bar/menu shape is drawn.
     // Kept transparent so the desktop behind the bar stays visible.
     readonly property color barBg: "transparent"
@@ -134,18 +138,17 @@ QtObject {
     // path that overwrites custom colors with another theme's colors, and
     // it only runs when a button calls it directly.
     function applyPresetToCustom(key) {
-        const preset = presets[key];
-        if (!preset) return;
-        const s = Qt.color(preset.surface);
+        if (!presets[key]) return;
+        const s = Qt.color(presetSurface(key));
         customSurfaceR = Math.round(s.r * 255);
         customSurfaceG = Math.round(s.g * 255);
         customSurfaceB = Math.round(s.b * 255);
         customOpacity = s.a;
-        const a = Qt.color(preset.accent);
+        const a = Qt.color(presetAccent(key));
         customAccentR = Math.round(a.r * 255);
         customAccentG = Math.round(a.g * 255);
         customAccentB = Math.round(a.b * 255);
-        customForegroundLight = relLuminance(preset.surface) < 0.5;
+        customForegroundLight = relLuminance(s) < 0.5;
         useCustomColors = true;
         persistence.adapter.useCustomColors = true;
         persistence.adapter.customSurfaceR = customSurfaceR;
