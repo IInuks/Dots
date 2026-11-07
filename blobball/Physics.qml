@@ -49,6 +49,12 @@ QtObject {
 
     signal arrivedAtCorner()
 
+    // In der Ecke geparkt (nach stepToCorner angekommen): bleibt liegen, bis
+    // er gegriffen oder geschleudert wird -- auch mit Schwerkraft. Sonst
+    // fiel er aus einer oberen Ecke sofort wieder runter, kam unten zur
+    // Ruhe, flog wieder hoch usw.
+    property bool parked: false
+
     function flyToCorner() {
         if (root.dragging || root.slingshotActive) return;
         switch (root.preferredCorner) {
@@ -72,6 +78,7 @@ QtObject {
             root._cornerTargetX = root.posX < root.boundsWidth / 2 ? root.radius : root.boundsWidth - root.radius;
             root._cornerTargetY = root.posY < root.boundsHeight / 2 ? root.radius + root.topMargin : root.boundsHeight - root.radius;
         }
+        root.parked = false;
         root.flyingToCorner = true;
     }
 
@@ -94,6 +101,7 @@ QtObject {
             root.vx = 0;
             root.vy = 0;
             root.flyingToCorner = false;
+            root.parked = true;
             root.arrivedAtCorner();
         }
     }
@@ -118,6 +126,7 @@ QtObject {
     function beginSlingshot(px, py) {
         root.dragging = false;
         root.flyingToCorner = false;
+        root.parked = false;
         root.slingshotActive = true;
         root.vx = 0;
         root.vy = 0;
@@ -164,7 +173,7 @@ QtObject {
         && !root.flyingToCorner
         && Math.abs(root.vx) < root.restThreshold
         && Math.abs(root.vy) < root.restThreshold
-        && (!root.gravityEnabled || root._onFloor)
+        && (!root.gravityEnabled || root._onFloor || root.parked)
 
     signal bounced(string edge)
 
@@ -178,6 +187,7 @@ QtObject {
     function beginDrag(px, py) {
         root.dragging = true;
         root.flyingToCorner = false;
+        root.parked = false;
         root.vx = 0;
         root.vy = 0;
         root._samples = [{ t: Date.now(), x: px, y: py }];

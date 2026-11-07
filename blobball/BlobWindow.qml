@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Io
 
 // Der Blob selbst: Darstellung (Formen, Squash&Stretch, Idle-Wobble),
 // Physik und Nachrichten-Flaeche. Eingestellt wird er im Tab "Blob" des
@@ -68,7 +69,7 @@ PanelWindow {
     readonly property bool _topHalf: root.physics.posY < root.height / 2
 
     // Adaptives Theme (Settings.blobAdaptiveTheme) ersetzt die manuell
-    // gewaehlte Settings.blobColor durch die live pywal-Akzentfarbe aus
+    // gewaehlte Settings.blobColor durch die live Wallpaper-Akzentfarbe aus
     // Theme.qml. _blobTextColor
     // zieht daraus (bzw. aus Settings.textColorMode, falls nicht "auto")
     // eine lesbare Schriftfarbe fuer die Nachrichten-Flaeche, die denselben
@@ -89,6 +90,7 @@ PanelWindow {
             && root.physics.atRest
             && !root.physics.dragging
             && !root.physics.flyingToCorner
+            && !root.physics.parked
         onTriggered: root.physics.flyToCorner()
     }
 
@@ -136,6 +138,42 @@ PanelWindow {
         radius: root._messagesPanelActive ? Math.round(messagesPanel._radius) : 0
     }
 
+    // Globale Zeigerposition fuer die Augen. Eine Layer-Shell-Flaeche
+    // bekommt unter Wayland nur Zeiger-Events ueber ihrer Eingabe-Maske,
+    // daher fragt blobball den eigenen Compositor: `wirbel pos loop xy`
+    // schreibt bei jeder Bewegung eine Zeile "X Y" (Layout-Pixel).
+    // Umgerechnet auf dieses Fenster ueber die Position seines Bildschirms.
+    property real _pointerX: 0
+    property real _pointerY: 0
+    property bool _pointerKnown: false
+
+    property Process _globalPointer: Process {
+        command: ["sh", "-c", "exec \"$(command -v wirbel || echo \"$HOME/.local/lib/wirbel/wirbel\")\" pos loop xy 1"]
+        running: true
+        stdout: SplitParser {
+            onRead: line => {
+                const parts = line.trim().split(/\s+/);
+                const x = parseFloat(parts[0]);
+                const y = parseFloat(parts[1]);
+                if (isNaN(x) || isNaN(y)) return;
+                root._pointerX = x - (root.screen ? root.screen.x : 0);
+                root._pointerY = y - (root.screen ? root.screen.y : 0);
+                root._pointerKnown = true;
+            }
+        }
+        onExited: {
+            root._pointerKnown = false;
+            root._pointerRetry.restart();
+        }
+    }
+
+    // Kein wirbel (anderer Compositor) oder wirbel neu gestartet: spaeter
+    // nochmal versuchen, ohne in einer schnellen Schleife zu laufen.
+    property Timer _pointerRetry: Timer {
+        interval: 5000
+        onTriggered: root._globalPointer.running = true
+    }
+
     Item {
         id: eyeZone
         width: root._eyeDetectRadius * 2
@@ -154,9 +192,21 @@ PanelWindow {
             dragging: root.physics.dragging || root.physics.slingshotActive
             atRest: root.physics.atRest
             jiggle: Settings.jiggleAmount
-            lookTracking: mouseArea.containsMouse || root.physics.dragging || root.physics.slingshotActive
-            targetLookX: Math.max(-1, Math.min(1, (mouseArea.mouseX - eyeZone.width / 2) / root._eyeLookRange))
-            targetLookY: Math.max(-1, Math.min(1, (mouseArea.mouseY - eyeZone.height / 2) / root._eyeLookRange))
+            // Ueber dem Blob (oder beim Ziehen) gilt die eigene MouseArea,
+            // sonst die globale Zeigerposition von `wirbel pos` (siehe
+            // _globalPointer oben) -- so schauen die Augen dem Cursor
+            // ueberall auf dem Bildschirm nach. Ohne wirbel (z.B. unter
+            // mango) bleibt es beim alten Verhalten: nur in der Naehe.
+            readonly property bool _local: mouseArea.containsMouse || root.physics.dragging || root.physics.slingshotActive
+            readonly property real _dx: _local ? mouseArea.mouseX - eyeZone.width / 2 : root._pointerX - root.physics.posX
+            readonly property real _dy: _local ? mouseArea.mouseY - eyeZone.height / 2 : root._pointerY - root.physics.posY
+            // Richtung erhalten statt pro Achse zu kappen: ein weit entfernter
+            // Cursor schiebt die Pupille an den Rand in genau seine Richtung.
+            readonly property real _dist: Math.max(0.001, Math.sqrt(_dx * _dx + _dy * _dy))
+            readonly property real _reach: Math.min(1, _dist / root._eyeLookRange)
+            lookTracking: _local || root._pointerKnown
+            targetLookX: _dx / _dist * _reach
+            targetLookY: _dy / _dist * _reach
             pullX: root.physics.slingshotActive ? root.physics.slingshotPullX / root.physics.maxSlingshotPull : 0
             pullY: root.physics.slingshotActive ? root.physics.slingshotPullY / root.physics.maxSlingshotPull : 0
 
@@ -221,6 +271,7 @@ PanelWindow {
                 // Ziehen (dist >= 6) bleibt es beim gewohnten Wurf.
                 if (root._wasCornerClick && dist < 6) {
                     root.atIdleCorner = true;
+                    root.physics.parked = true; // nicht wieder runterfallen
                     Message.markAllRead();
                     Settings.messagesOpen = true;
                 }

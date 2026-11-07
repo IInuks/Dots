@@ -3,8 +3,8 @@
 Ein weicher, animierter Blob, der frei über deinem Desktop schwebt. Du kannst
 ihn mit der Maus greifen und durch die Gegend werfen -- er prallt elastisch
 an den Bildschirmrändern ab und kommt sauber zur Ruhe. Zwei Augen verfolgen
-deine Maus, sobald sie in seine Nähe kommt, und schauen sonst von selbst
-umher. Form, Größe, Physik und Farbe stellst du im Tab **Blob** des
+deine Maus -- unter dem wirbel-Compositor überall auf dem Bildschirm, sonst
+nur in seiner Nähe; außerhalb davon schauen sie von selbst umher. Form, Größe, Physik und Farbe stellst du im Tab **Blob** des
 quickdots-Menüs ein (`../menu`, siehe unten). blobball hat kein eigenes
 Menü mehr.
 
@@ -51,7 +51,7 @@ nicht läuft), „Test-Nachricht“ und „Standard“ (setzt alles zurück).
 | Ecke (5 Icons) | welche Ecke angeflogen wird: automatisch die naechstgelegene, oder fest eine der vier Ecken |
 | Sicherheitsabstand oben (Bars) | Freiraum am oberen Bildschirmrand, den der Blob beim Ruhen/Ziehen/Ecken-Anflug nicht mehr betritt (0--120px, Standard 44px = Hoehe der aktuell aktiven Bar) -- verhindert, dass er in den oberen Ecken unter eine dort sitzende Bar rutscht |
 | Farbe | sechs Farben zum Durchklicken (manuelle Farbe, siehe "Adaptives Theme") |
-| Adaptives Theme | faerbt den Blob (und die Nachrichten-Flaeche) statt in der oben gewaehlten Farbe live in der pywal-Akzentfarbe des aktuellen Wallpapers |
+| Adaptives Theme | faerbt den Blob (und die Nachrichten-Flaeche) statt in der oben gewaehlten Farbe live in der Akzentfarbe des aktuellen Wallpapers (`awww query` + ColorQuantizer, pywal nur als Rückfall) |
 | Schrift (Auto/Schwarz/Weiß) | Schriftfarbe in der Nachrichten-Flaeche: "Auto" errechnet sie aus der Helligkeit des jeweiligen Hintergrunds, "Schwarz"/"Weiß" erzwingen eine feste Farbe -- noetig, weil ein adaptives Theme einen beliebig hellen oder dunklen Hintergrund ziehen kann |
 
 Alle Einstellungen werden sofort gespeichert (in
@@ -151,7 +151,7 @@ ersetzen (Config wird dann über den Namen statt über den Pfad gefunden).
 shell.qml                ShellRoot, IpcHandler ("menu" = opened/closed vom quickdots-Menü, "notify", "messages")
 Settings.qml              Singleton: liest blob.json (FileView/JsonAdapter, watchChanges -> live), geschrieben wird sie von menu/BlobStore.qml
 Message.qml                Singleton: transienter Nachrichten-Zustand + -Verlauf/Ungelesen-Zaehler fuer die "notify"-IPC (nicht persistiert)
-Theme.qml                   Singleton: liest die live pywal-Palette (~/.cache/wal/colors.json) fuers adaptive Blob-Theme + textColorFor()-Helfer
+Theme.qml                   Singleton: Akzentfarbe aus dem aktuellen Wallpaper (awww + ColorQuantizer, schreibt ~/.cache/blobball/accent fuers Menue) fuers adaptive Blob-Theme + textColorFor()-Helfer
 BlobWindow.qml             Layer-Shell-Fenster, Input-Maske, Drag-MouseArea (inkl. Klick-vs-Wurf-Erkennung an der Ecke), FrameAnimation-Ticker, Ungelesen-Badge, Nachrichten-Flaeche (der Blob verformt sich in-place, kein eigenes Fenster)
 Blob.qml                   Darstellung: 4 Formen + alle Animationen (inkl. Wabbeligkeits-Skalierung)
 Physics.qml                Reine Integration/Kollision/Wurfgeschwindigkeit/Ecken-Anflug/Steinschleuder (kein Fenster-Wissen)
@@ -189,7 +189,7 @@ home-manager-module.nix     installiert quickshell, legt Config nach ~/.config/q
   reines Auto-Kontrast-System.** "Auto" errechnet Schwarz/Weiß aus der
   Helligkeit des jeweiligen Hintergrunds (`Theme.textColorFor`); ein
   aktiviertes adaptives Theme kann aber einen beliebig hellen oder
-  dunklen Hintergrund aus pywal ziehen, auf dem die automatische Wahl
+  dunklen Hintergrund aus dem Wallpaper ziehen, auf dem die automatische Wahl
   nicht immer der Geschmack ist -- deshalb bleibt eine feste Übersteuerung
   wählbar.
 - **Ein Blob, ein Bildschirm.** `BlobWindow` bindet sich an
@@ -227,6 +227,12 @@ home-manager-module.nix     installiert quickshell, legt Config nach ~/.config/q
   sichtbare Blob-Form), was das Greifen eher erleichtert als stoert. Ausserhalb
   der Zone schauen die Augen von selbst zufaellig umher (`Blob.qml`,
   `_lookX`/`_lookY`-Idle-Timer) statt starr geradeaus zu stehen.
+  **Ausnahme wirbel:** Laeuft blobball unter dem eigenen Compositor wirbel,
+  liest `BlobWindow.qml` (`_globalPointer`) die globale Zeigerposition aus
+  `wirbel pos loop xy 1` und die Augen folgen dem Cursor bildschirmweit, ohne
+  die Input-Region zu vergroessern. Fehlt wirbel (z.B. unter mango), endet der
+  Prozess sofort, alle 5s gibt es einen neuen Versuch, und es bleibt beim
+  Verhalten mit Erkennungszone.
 - **Kein eigener `org.freedesktop.Notifications`-Server.** Fuer "der Blob
   zeigt eine Nachricht" waere ein echter Notification-Server
   (`Quickshell.Services.Notifications`) die naheliegende Wahl gewesen -- der

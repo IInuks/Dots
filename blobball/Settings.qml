@@ -55,14 +55,14 @@ QtObject {
     // Hoehe der aktuell aktiven Bar (bars/claude, Metrics.barHeight = 44).
     property real barMargin: 44
 
-    // Blob (und Nachrichten-Flaeche) in der live pywal-Akzentfarbe statt
+    // Blob (und Nachrichten-Flaeche) in der live Wallpaper-Akzentfarbe statt
     // in blobColor (Theme.qml).
     property bool blobAdaptiveTheme: false
 
     // Schriftfarbe in der Nachrichten-Flaeche: "auto" errechnet
     // sie aus der Helligkeit des jeweiligen Hintergrunds (Theme.textColorFor),
     // "black"/"white" erzwingen eine feste Farbe. Noetig, weil ein adaptives
-    // Theme einen beliebig hellen oder dunklen Hintergrund aus pywal ziehen
+    // Theme einen beliebig hellen oder dunklen Hintergrund aus dem Wallpaper ziehen
     // kann, auf dem eine fest verdrahtete Textfarbe unlesbar wuerde.
     property string textColorMode: "auto" // "auto" | "black" | "white"
 

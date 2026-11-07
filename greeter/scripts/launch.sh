@@ -19,6 +19,7 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 	echo "== XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_SESSION_ID=$XDG_SESSION_ID"
 	echo "== elogind: $(pgrep -x elogind >/dev/null && echo up || echo DOWN)  dbus: $(pgrep -x dbus-daemon >/dev/null && echo up || echo DOWN)"
 } >"$dir/qs.log"
+export DRI_PRIME=pci-0000_0d_00_0
 qs -n --log-times -p /bedrock/strata/void/etc/greetd/quickdots >>"$dir/qs.log" 2>&1
 status=$?
 echo "== qs exited with $status" >>"$dir/qs.log"

@@ -34,16 +34,18 @@ QtObject {
     readonly property bool blobAdaptiveTheme: file.adapter.blobAdaptiveTheme
     readonly property string textColorMode: file.adapter.textColorMode
 
-    // pywal accent (same source as blobball/Theme.qml) for the preview when
-    // the adaptive theme is on.
+    // Wallpaper accent that blobball/Theme.qml computes (awww + ColorQuantizer)
+    // and writes to ~/.cache/blobball/accent, for the preview when the
+    // adaptive theme is on. Default color until blobball has written it.
     readonly property color walAccent: _wal.accent
     property FileView _wal: FileView {
-        path: Quickshell.env("HOME") + "/.cache/wal/colors.json"
+        path: Quickshell.env("HOME") + "/.cache/blobball/accent"
         printErrors: false
         watchChanges: true
         property color accent: "#7c5cff"
         onLoaded: {
-            try { accent = JSON.parse(text()).colors.color4; } catch (e) {}
+            const t = text().trim();
+            if (/^#[0-9a-fA-F]{6,8}$/.test(t)) accent = t;
         }
         onFileChanged: reload()
     }

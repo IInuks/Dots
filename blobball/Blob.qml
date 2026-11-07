@@ -39,26 +39,43 @@ Item {
     readonly property real _pullMag: Math.min(1, Math.hypot(root.pullX, root.pullY))
     readonly property real _pullAngle: Math.atan2(root.pullY, root.pullX) * 180 / Math.PI
 
+    // Blickrichtung der Pupillen. Keine Behavior/SpringAnimation mehr: die
+    // globale Zeigerposition (wirbel pos) kommt alle paar Millisekunden,
+    // und jede neue Zielposition hat die Feder neu gestartet -- das wirkte
+    // ruckelig. Stattdessen naehert eine FrameAnimation _look einmal pro
+    // gezeichnetem Bild exponentiell ans aktuelle Ziel an (bildratenunab-
+    // haengig, egal wie viele Zeigerzeilen dazwischen ankamen).
     property real _lookX: 0
     property real _lookY: 0
-    Behavior on _lookX { SpringAnimation { spring: 2.6; damping: 0.6 } }
-    Behavior on _lookY { SpringAnimation { spring: 2.6; damping: 0.6 } }
-    onLookTrackingChanged: if (root.lookTracking) { root._lookX = root.targetLookX; root._lookY = root.targetLookY; }
-    onTargetLookXChanged: if (root.lookTracking) root._lookX = root.targetLookX;
-    onTargetLookYChanged: if (root.lookTracking) root._lookY = root.targetLookY;
+    property real _wanderX: 0
+    property real _wanderY: 0
+    readonly property real _goalX: root.lookTracking ? root.targetLookX : root._wanderX
+    readonly property real _goalY: root.lookTracking ? root.targetLookY : root._wanderY
+    // Zeitkonstante: ~30ms beim Verfolgen (wirkt direkt), beim selbststaendigen
+    // Umherschauen gemaechlicher.
+    readonly property real _lookRate: root.lookTracking ? 34 : 9
+
+    FrameAnimation {
+        running: Math.abs(root._goalX - root._lookX) > 0.0005 || Math.abs(root._goalY - root._lookY) > 0.0005
+        onTriggered: {
+            const k = 1 - Math.exp(-Math.min(frameTime, 0.05) * root._lookRate);
+            root._lookX += (root._goalX - root._lookX) * k;
+            root._lookY += (root._goalY - root._lookY) * k;
+        }
+    }
 
     Timer {
-        // Nur aktiv, solange die Maus ausserhalb der Erkennungszone ist --
-        // waehlt in unregelmaessigen Abstaenden ein neues Blickziel, zu dem
-        // die Feder-Behavior oben dann hinueberschwenkt.
+        // Nur aktiv, solange kein Zeiger verfolgt wird -- waehlt in
+        // unregelmaessigen Abstaenden ein neues Blickziel, zu dem die
+        // FrameAnimation oben dann hinueberschwenkt.
         running: !root.lookTracking
         repeat: true
         triggeredOnStart: true
         interval: 1500 + Math.random() * 1800
         onTriggered: {
             interval = 1500 + Math.random() * 1800;
-            root._lookX = (Math.random() * 2 - 1) * 0.6;
-            root._lookY = (Math.random() * 2 - 1) * 0.45;
+            root._wanderX = (Math.random() * 2 - 1) * 0.6;
+            root._wanderY = (Math.random() * 2 - 1) * 0.45;
         }
     }
 

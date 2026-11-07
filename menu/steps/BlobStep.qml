@@ -336,7 +336,7 @@ FocusScope {
                         ToggleRow {
                             width: parent.width
                             label: "Adaptives Theme"
-                            hint: "Farbe live aus dem Wallpaper (pywal)"
+                            hint: "Farbe live aus dem aktuellen Wallpaper"
                             checked: BlobStore.blobAdaptiveTheme
                             onToggled: v => BlobStore.set("blobAdaptiveTheme", v)
                         }
